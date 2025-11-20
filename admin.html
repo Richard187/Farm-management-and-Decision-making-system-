@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="crop-planning.html" class="nav-link">Crop Planning</a></li>
+                    <li><a href="livestock.html" class="nav-link">Livestock</a></li>
+                    <li><a href="finance.html" class="nav-link">Finance</a></li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions"></div>
+        </div>
+    </header>
+
+    <section class="dashboard-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i> Admin Dashboard</h2>
+            <p class="section-subtitle">Overview of farmer registrations and activity</p>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <div id="registeredFarmers" class="card-value">0</div>
+                    <div class="card-title">Registered Farmers</div>
+                    <div id="recentSignup" class="card-trend"><i class="fas fa-user-plus"></i></div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    <div id="loggedInFarmers" class="card-value">0</div>
+                    <div class="card-title">Currently Logged In</div>
+                    <div class="card-trend"><i class="fas fa-clock"></i> Active in last 24h</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                    <div id="adminEmail" class="card-value">admin</div>
+                    <div class="card-title">Admin Account</div>
+                    <div class="card-trend"><i class="fas fa-info-circle"></i> Use secure credentials</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div id="farmTypeCount" class="card-value">0</div>
+                    <div class="card-title">Distinct Farm Types</div>
+                    <div class="card-trend"><i class="fas fa-leaf"></i> Distribution below</div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3 class="section-title">Farmers</h3>
+                <div class="actions-grid">
+                    <div class="action-card" onclick="location.href='signup.html'">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register New Farmer</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='index.html'">
+                        <i class="fas fa-home"></i>
+                        <span>Return to Home</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                <div class="dashboard-card" style="overflow-x:auto;">
+                    <div class="card-title"><i class="fas fa-table"></i> Farmer Directory</div>
+                    <table id="farmerTable" class="table" style="width:100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Farm Type</th>
+                                <th>Farm Size</th>
+                                <th>Registered</th>
+                                <th>Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                <div class="dashboard-card">
+                    <div class="card-title"><i class="fas fa-list"></i> Farm Type Distribution</div>
+                    <div id="farmTypeList"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/admin.js"></script>
+</body>
+</html>

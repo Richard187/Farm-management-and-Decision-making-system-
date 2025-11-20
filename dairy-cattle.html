@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dairy Cattle Management | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/livestock.css">
+    <style>
+        /* ——— Page-scoped styling for Dairy Cattle ——— */
+        :root{
+            --bg1:#f7f9f5;            /* light farm canvas */
+            --bg2:#eef3ea;
+            --olive:#4b5e34;          /* primary olive */
+            --olive-dark:#3f4f2e;     /* darker olive */
+            --olive-light:#6b7f49;    /* lighter olive */
+            --sky:#93c5fd;            /* soft sky accent */
+            --card-stroke:#d9e2cf;    /* light stroke */
+            --text:#1f2937;           /* dark text for light cards */
+            --muted:#475569;          /* slate-ish */
+            --radius:16px;
+            --shadow:0 10px 30px -10px rgba(44,63,35,.25);
+        }
+        body{
+            background: linear-gradient(180deg, var(--bg1), var(--bg2));
+            color: #0b1226; /* keep global text legible; cards override */
+            overflow-x: hidden;
+        }
+        /* Hero background with cattle image */
+        .background-simulation.livestock-simulation{
+            position: relative;
+            min-height: 260px;
+            background:
+                linear-gradient(180deg, rgba(75,94,52,.92), rgba(75,94,52,.75)) ,
+                url('images/cattle.webp') center/cover no-repeat fixed;
+        }
+        .background-simulation.livestock-simulation .simulation-overlay{
+            display: none;
+        }
+        header{
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(34,49,24,.85), rgba(34,49,24,.55));
+            border-bottom: 1px solid rgba(107,127,73,.35);
+        }
+        .page-content .section-title{
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;
+            padding:.6rem 1rem;
+            border-radius:12px;
+            background: linear-gradient(180deg, rgba(75,94,52,.12), rgba(75,94,52,.06));
+            border:1px solid rgba(107,127,73,.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+            color:#223018;
+        }
+        .page-content .section-subtitle{ color: #475569; }
+        .livestock-overview, .livestock-grid{
+            margin-top: 12px;
+        }
+        .stat-card, .livestock-card{
+            background: #ffffff;
+            border:1px solid var(--card-stroke);
+            border-radius: var(--radius);
+            box-shadow: 0 12px 26px -18px rgba(0,0,0,.35);
+            position: relative;
+            overflow: clip;
+            /* Olive accent edge */
+            border-left: 4px solid var(--olive);
+            color: var(--text);
+        }
+        .stat-card::before, .livestock-card::before{
+            content:"";
+            position:absolute;
+            inset:-30% 40% auto -30%;
+            height:240px;
+            background: radial-gradient(closest-side, rgba(75,94,52,.10), transparent 70%);
+            filter: blur(24px);
+            transform: rotate(8deg);
+            z-index:-1;
+            pointer-events:none;
+        }
+        .stat-icon i{
+            color:var(--olive);
+            font-size: 1.4rem;
+        }
+        .stat-value{
+            color:var(--olive-dark);
+            font-weight:800;
+            font-size: 1.6rem;
+            letter-spacing:.3px;
+        }
+        .stat-label{ color: #6b7f49; opacity:.95; }
+        .livestock-header h3{ margin:0; display:flex; align-items:center; gap:.6rem; }
+        .livestock-header h3 i{ color: var(--olive); }
+        .schedule-item span strong{ color:#223018; background: rgba(75,94,52,.12); padding:2px 6px; border-radius:8px; }
+        .production-data .data-item span:first-child{
+            color:#6b7f49;
+        }
+        .production-data .data-item span:last-child{
+            color:#223018;
+            font-weight:600;
+        }
+        footer{
+            background: linear-gradient(180deg, rgba(34,49,24,.0), rgba(34,49,24,.3));
+            border-top: 1px solid rgba(107,127,73,.35);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                    <li><a href="market.html" class="nav-link">Market</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Simulation -->
+    <div class="background-simulation livestock-simulation">
+        <div class="simulation-overlay"></div>
+    </div>
+
+    <!-- Dairy Cattle Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-cow"></i> Climate-Smart Dairy Management</h2>
+            <p class="section-subtitle">Balance milk production targets with heat stress mitigation, fodder security, and herd health.</p>
+            <div class="livestock-callout" style="background:#f4f7ef;border-left:4px solid #4b5e34;padding:16px 20px;border-radius:12px;margin:18px 0;color:#2d3e33;">
+                <strong>Study insight:</strong> Dairy households that trust extension officers and access seasonal forecasts shift to shade nets and water efficiency sooner. Record your advisory network below to tune alerts.
+            </div>
+            
+            <div class="livestock-overview">
+                <div class="livestock-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cow"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalHeadValue">0</div>
+                            <div class="stat-label">Total Head</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="milkingCowsValue">0</div>
+                            <div class="stat-label">Milking Cows</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="calvesValue">0</div>
+                            <div class="stat-label">Calves</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-milk-bottle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="avgMilkValue">6.2</div>
+                            <div class="stat-label">Avg. Milk (gal/day)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="livestock-grid">
+                <div class="livestock-card">
+                    <div class="livestock-header">
+                        <div class="livestock-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <h3>Production Data</h3>
+                    </div>
+                    <div class="livestock-body">
+                        <div class="production-data">
+                            <div class="data-item">
+                                <span>Daily Milk Production:</span>
+                                <span id="dailyMilkValue">0 gallons</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Monthly Production:</span>
+                                <span id="monthlyMilkValue">0 gallons</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Feed Consumption:</span>
+                                <span id="feedConsumptionValue">0 lbs/day</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="livestock-card">
+                    <div class="livestock-header">
+                        <div class="livestock-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <h3>Milking Schedule</h3>
+                    </div>
+                    <div class="livestock-body">
+                        <div class="schedule-list">
+                            <div class="schedule-item">
+                                <span><strong>Morning:</strong> 5:00 AM - 7:00 AM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span><strong>Evening:</strong> 5:00 PM - 7:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/livestock.js"></script>
+    <script>
+        // Dairy page: derive metrics from saved livestockData.cattle
+        (function(){
+            function getData(){
+                try{
+                    return JSON.parse(localStorage.getItem('livestockData') || '{}');
+                }catch(_){ return {}; }
+            }
+            function formatNumber(n){
+                return n.toLocaleString(undefined, { maximumFractionDigits: 1 });
+            }
+            function recalc(){
+                const data = getData();
+                const herd = Math.max(0, parseInt(data.cattle) || 0);
+                // Assumptions if not explicitly stored:
+                // - 85% of herd are milking cows (typical lactating portion for a dairy-oriented herd)
+                // - 10% are calves
+                // - Average milk per milking cow per day: default 6.2 gallons (editable in UI if needed)
+                const milkingPct = 0.85;
+                const calfPct = 0.10;
+                const milkingCows = Math.round(herd * milkingPct);
+                const calves = Math.max(0, Math.round(herd * calfPct));
+                const avgMilk = parseFloat(document.getElementById('avgMilkValue').textContent) || 6.2;
+                const dailyMilk = milkingCows * avgMilk;
+                const monthlyMilk = dailyMilk * 30;
+                // Simple feed rule of thumb: 3% of bodyweight DM/day, assume 500 kg average cow = 15 kg DM ≈ 33 lb
+                // For display, show in pounds/day for entire herd: 33 lb * herd
+                const feedPerHeadLb = 33;
+                const totalFeedLbPerDay = herd * feedPerHeadLb;
+
+                const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+                setText('totalHeadValue', formatNumber(herd));
+                setText('milkingCowsValue', formatNumber(milkingCows));
+                setText('calvesValue', formatNumber(calves));
+                setText('dailyMilkValue', formatNumber(dailyMilk) + ' gallons');
+                setText('monthlyMilkValue', formatNumber(monthlyMilk) + ' gallons');
+                setText('feedConsumptionValue', formatNumber(totalFeedLbPerDay) + ' lbs/day');
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                recalc();
+            });
+            // Update when localStorage changes in this or other tabs/windows
+            window.addEventListener('storage', function(e){
+                if (e.key === 'livestockData') recalc();
+            });
+        })();
+    </script>
+</body>
+</html>

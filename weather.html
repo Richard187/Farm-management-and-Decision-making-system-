@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Intelligence | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/weather.css">
+    <style>
+        header {
+            background: linear-gradient(135deg, #4A90E2 0%, #2C3E8F 100%);
+            border-bottom: 3px solid #FFD43B;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo .logo-text { color: #FFFFFF; }
+        .logo i { color: #FFD43B; }
+
+        nav a { color: #FFFFFF; text-shadow: none; }
+        nav a:hover, nav a.active {
+            color: #FFD43B;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        nav a::after { background: #FFD43B; box-shadow: none; }
+
+        .dropdown-menu {
+            background: #F8F9FA;
+            border: 1px solid #87CEEB;
+        }
+        .dropdown-menu a { color: #343A40; }
+        .dropdown-menu a:hover {
+            background-color: rgba(74, 144, 226, 0.10);
+            color: #2C3E8F;
+            padding-left: 25px;
+        }
+        .dropdown-menu a i { color: #4A90E2; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-cloud-sun"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link active">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Simulation - Weather Animation -->
+    <div class="background-simulation weather-simulation">
+        <div class="simulation-overlay"></div>
+        <div class="weather-animation">
+            <div class="sky">
+                <div class="sun">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="cloud cloud-1">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="cloud cloud-2">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="cloud cloud-3">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="rain"></div>
+            </div>
+            <div class="ground">
+                <div class="field">
+                    <div class="crop-row"></div>
+                    <div class="crop-row"></div>
+                    <div class="crop-row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weather Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title">Climate &amp; Weather Intelligence</h2>
+            <p class="section-subtitle">Translate forecasts into climate-smart actions that shield Zambian farms against droughts, floods, and heat waves.</p>
+            
+            <!-- Weather Alert -->
+            <div class="weather-alert">
+                <div class="alert-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-content">
+                    <h3>Climate Advisory</h3>
+                    <p>Dekad outlook shows a high probability of heat stress. Prioritise mulching on maize plots and schedule livestock hydration checks every 4 hours.</p>
+                </div>
+                <button class="btn btn-outline" onclick="dismissAlert()">Dismiss</button>
+            </div>
+
+            <!-- Current Weather -->
+            <div class="current-weather">
+                <div class="weather-main">
+                    <div class="weather-info">
+                        <h3>Current Conditions</h3>
+                        <div class="weather-temp" id="currentTemp">--°C</div>
+                        <p id="weatherCondition">Fetching live weather…</p>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="locationName">Lusaka, Zambia</span>
+                        </div>
+                    </div>
+                    <div class="weather-icon" id="weatherIcon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                </div>
+                
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <div>
+                            <div>Wind</div>
+                            <div id="windSpeed">-- km/h</div>
+                        </div>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <div>
+                            <div>Humidity</div>
+                            <div id="humidity">--%</div>
+                        </div>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <div>
+                            <div>Pressure</div>
+                            <div id="pressure">-- hPa</div>
+                        </div>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <div>Visibility</div>
+                            <div id="visibility">-- km</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forecast -->
+            <div class="forecast">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+                    <h3 style="margin:0;"><i class="fas fa-calendar-week"></i> 7-Day Forecast</h3>
+                    <div>
+                        <button id="weather-settings-toggle" class="btn btn-outline"><i class="fas fa-gear"></i> Location</button>
+                    </div>
+                </div>
+                <div id="weather-settings" class="feed-settings-panel" style="display:none;margin-top:10px;">
+                    <div class="form-group">
+                        <label for="weather-location">City, Country</label>
+                        <input id="weather-location" placeholder="e.g., Lusaka, Zambia">
+                    </div>
+                    <button id="save-weather-settings" class="btn">Save & Refresh</button>
+                </div>
+                <div class="forecast-grid" id="forecastGrid">
+                    <!-- Forecast days will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Farming Recommendations -->
+            <div class="recommendations">
+                <h3 class="section-title">Farming Recommendations</h3>
+                <div class="recommendation-cards">
+                    <div class="recommendation-card">
+                        <div class="rec-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="rec-content">
+                            <h4>Irrigation Schedule</h4>
+                            <p>With 0.2 inches of rain yesterday, delay irrigation until soil moisture drops below 60%.</p>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <div class="rec-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="rec-content">
+                            <h4>Planting Window</h4>
+                            <p>Optimal conditions for planting tomatoes in the next 3 days. Soil temperature is ideal.</p>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <div class="rec-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <div class="rec-content">
+                            <h4>Pest Control</h4>
+                            <p>High humidity may increase fungal diseases. Consider preventive fungicide application.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Impact Analysis -->
+            <div class="impact-analysis">
+                <h3 class="section-title">Weather Impact Analysis</h3>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <h4><i class="fas fa-leaf"></i> Crop Impact</h4>
+                        <div class="impact-meter">
+                            <div class="meter-label">
+                                <span>Low</span>
+                                <span>High</span>
+                            </div>
+                            <div class="meter-bar">
+                                <div class="meter-fill" style="width: 30%;"></div>
+                            </div>
+                        </div>
+                        <p>Current weather conditions are favorable for most crops with minimal risk.</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4><i class="fas fa-cow"></i> Livestock Impact</h4>
+                        <div class="impact-meter">
+                            <div class="meter-label">
+                                <span>Low</span>
+                                <span>High</span>
+                            </div>
+                            <div class="meter-bar">
+                                <div class="meter-fill" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                        <p>Mild temperatures reduce heat stress on livestock. Ideal conditions for outdoor grazing.</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4><i class="fas fa-tractor"></i> Field Work</h4>
+                        <div class="impact-meter">
+                            <div class="meter-label">
+                                <span>Poor</span>
+                                <span>Ideal</span>
+                            </div>
+                            <div class="meter-bar">
+                                <div class="meter-fill" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <p>Dry conditions make fields suitable for machinery. Good window for planting and harvesting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; <span id="currentYear"></span> AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/weather.js"></script>
+    <script>
+        // Update footer year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    <style>
+        :root {
+            --weather-primary: #4A90E2;
+            --weather-secondary: #2C3E8F;
+            --weather-accent: #FFD43B;
+            --weather-warning: #FFD43B;
+            --weather-danger: #2C3E8F;
+            --weather-success: #87CEEB;
+            --weather-bg: #F8F9FA;
+            --weather-card: #FFFFFF;
+            --weather-text: #343A40;
+            --weather-text-light: #6C757D;
+            --weather-border: #87CEEB;
+            --weather-shadow: 0 8px 32px rgba(74, 144, 226, 0.15);
+            --weather-shadow-hover: 0 16px 48px rgba(74, 144, 226, 0.25);
+            --weather-glow: 0 0 30px rgba(74, 144, 226, 0.30);
+        }
+
+        body {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(74, 144, 226, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 212, 59, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(135, 206, 235, 0.06) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background-simulation.weather-simulation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--weather-primary) 0%, var(--weather-secondary) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid var(--weather-accent);
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary), var(--weather-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 10px rgba(0, 102, 255, 0.3));
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            color: var(--weather-text);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* Weather Alert */
+        .weather-alert {
+            background: linear-gradient(135deg, #fff0f0, #fff5e6, #fff8e0);
+            border: 3px solid var(--weather-warning);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: var(--weather-shadow-hover), 0 0 40px rgba(255, 102, 0, 0.2);
+            color: var(--weather-text);
+            animation: pulseAlert 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-alert::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes pulseAlert {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .alert-content h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
+        }
+
+        .alert-content p {
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        /* Current Weather Card */
+        .current-weather {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 247, 255, 0.98));
+            backdrop-filter: blur(30px);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--weather-shadow), inset 0 0 60px rgba(0, 102, 255, 0.05);
+            border: 3px solid var(--weather-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .current-weather::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .weather-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid var(--weather-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .weather-temp {
+            font-size: 5.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary), var(--weather-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px rgba(0, 102, 255, 0.3));
+        }
+
+        .weather-icon {
+            font-size: 7rem;
+            background: linear-gradient(135deg, var(--weather-accent), var(--weather-warning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 170, 0, 0.5));
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(255, 170, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 50px rgba(255, 170, 0, 0.7)); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .weather-detail {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.08), rgba(255, 0, 170, 0.08));
+            border-radius: 16px;
+            border: 2px solid var(--weather-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-detail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .weather-detail:hover::before {
+            left: 100%;
+        }
+
+        .weather-detail:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: var(--weather-shadow-hover), 0 0 30px rgba(0, 102, 255, 0.3);
+            border-color: var(--weather-accent);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.15), rgba(255, 0, 170, 0.15));
+        }
+
+        .weather-detail i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.4));
+        }
+
+        .weather-detail > div > div:first-child {
+            color: var(--weather-text-light);
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .weather-detail > div > div:last-child {
+            color: var(--weather-text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Forecast Section */
+        .forecast {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 240, 245, 0.98));
+            backdrop-filter: blur(30px);
+            border-radius: 28px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--weather-shadow), inset 0 0 60px rgba(255, 0, 170, 0.05);
+            border: 3px solid var(--weather-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .forecast::before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 0, 170, 0.08) 0%, transparent 70%);
+            animation: rotate 25s linear infinite reverse;
+        }
+
+        .forecast h3 {
+            background: linear-gradient(135deg, var(--weather-secondary), var(--weather-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 30px 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .forecast-day {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(255, 0, 170, 0.1));
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            border: 2px solid var(--weather-primary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .forecast-day::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.15), rgba(255, 0, 170, 0.15));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .forecast-day:hover::before {
+            opacity: 1;
+        }
+
+        .forecast-day:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--weather-shadow-hover), 0 0 40px rgba(255, 0, 170, 0.3);
+            border-color: var(--weather-accent);
+        }
+
+        .forecast-day .day-name {
+            font-weight: 600;
+            color: var(--weather-text);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .forecast-day .day-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 12px 0;
+            filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.4));
+            position: relative;
+            z-index: 1;
+        }
+
+        .forecast-day .day-temp {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--weather-accent), var(--weather-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .forecast-day .day-desc {
+            font-size: 0.9rem;
+            color: var(--weather-text-light);
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            margin-bottom: 40px;
+        }
+
+        .recommendation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 247, 255, 0.98));
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            gap: 24px;
+            border: 2px solid var(--weather-primary);
+            box-shadow: var(--weather-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recommendation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .recommendation-card:hover::before {
+            opacity: 1;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--weather-shadow-hover), 0 0 40px rgba(0, 102, 255, 0.3);
+            border-color: var(--weather-accent);
+        }
+
+        .rec-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary), var(--weather-accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .rec-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .rec-content h4 {
+            margin: 0 0 10px 0;
+            color: var(--weather-text);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .rec-content p {
+            margin: 0;
+            color: var(--weather-text-light);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Impact Analysis */
+        .impact-analysis {
+            margin-bottom: 40px;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 240, 245, 0.98));
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 28px;
+            border: 2px solid var(--weather-secondary);
+            box-shadow: var(--weather-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--weather-primary), var(--weather-secondary), var(--weather-accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .impact-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .impact-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--weather-shadow-hover), 0 0 40px rgba(255, 0, 170, 0.3);
+            border-color: var(--weather-accent);
+        }
+
+        .impact-card h4 {
+            margin: 0 0 24px 0;
+            background: linear-gradient(135deg, var(--weather-secondary), var(--weather-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .impact-card h4 i {
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.4));
+        }
+
+        .impact-meter {
+            margin: 20px 0;
+        }
+
+        .meter-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--weather-text-light);
+        }
+
+        .meter-bar {
+            height: 14px;
+            background: rgba(226, 232, 240, 0.8);
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid var(--weather-border);
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--weather-primary), var(--weather-secondary), var(--weather-accent));
+            border-radius: 7px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meter-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .impact-card p {
+            margin: 20px 0 0 0;
+            color: var(--weather-text-light);
+            line-height: 1.7;
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 14px;
+            padding: 14px 28px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary));
+            border: 2px solid var(--weather-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.5), 0 0 40px rgba(0, 102, 255, 0.2);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--weather-primary);
+            color: var(--weather-primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(135deg, var(--weather-primary), var(--weather-secondary));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+            border-color: var(--weather-accent);
+        }
+
+        /* Location */
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--weather-text-light);
+            margin-top: 16px;
+            font-size: 1.1rem;
+        }
+
+        .location i {
+            color: var(--weather-primary);
+            filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.4));
+        }
+
+        .weather-info h3 {
+            color: var(--weather-text);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .weather-info p {
+            color: var(--weather-text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .weather-main {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .weather-temp {
+                font-size: 3.5rem;
+            }
+
+            .weather-icon {
+                font-size: 4rem;
+            }
+
+            .forecast-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* Settings Panel */
+        .feed-settings-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 247, 255, 0.98));
+            backdrop-filter: blur(30px);
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid var(--weather-primary);
+            margin-top: 20px;
+            box-shadow: var(--weather-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--weather-text);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--weather-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--weather-text);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--weather-primary);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--weather-text-light);
+            opacity: 0.6;
+        }
+    </style>
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/weather.js"></script>
+</body>
+</html>

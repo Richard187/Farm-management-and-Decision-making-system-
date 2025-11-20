@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Schedule | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/crop-planning.css">
+    <style>
+        /* ——— Modern Farm-Fresh Theme ——— */
+        :root{
+            --warm-beige:#F7E6D2;        /* warm pale beige */
+            --peach-cream:#F3DDC6;       /* soft peach cream */
+            --deep-green:#0E8A3A;       /* deep green */
+            --fresh-green:#15803D;      /* fresh green */
+            --sage-green:#A3C9A8;       /* soft sage green */
+            --cream-white:#FFFDF9;      /* warm cream white */
+            --warm-gray:#6B7280;        /* warm gray for text */
+            --soft-shadow:0 8px 24px rgba(0,0,0,.08);
+            --card-radius:20px;
+            --btn-radius:12px;
+        }
+        
+        /* Modern background with warm gradient */
+        body {
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--peach-cream) 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+        
+        /* Modern header with glass effect */
+        header {
+            background: rgba(255, 253, 249, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(163, 201, 168, 0.2);
+            box-shadow: var(--soft-shadow);
+        }
+        
+        /* Modern section titles */
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--deep-green), var(--fresh-green));
+            color: white;
+            border-radius: var(--card-radius);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            box-shadow: var(--soft-shadow);
+        }
+        
+        .section-subtitle {
+            color: var(--deep-green);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        /* Modern card design */
+        .plan-card {
+            background: var(--cream-white);
+            border-radius: var(--card-radius);
+            box-shadow: var(--soft-shadow);
+            border: 1px solid rgba(163, 201, 168, 0.15);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,.12);
+        }
+        
+        .plan-card h3 {
+            color: var(--deep-green);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Modern buttons */
+        .btn {
+            border-radius: var(--btn-radius);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--deep-green), var(--fresh-green));
+            color: white;
+            box-shadow: 0 4px 12px rgba(14, 138, 58, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(14, 138, 58, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--deep-green);
+            border: 2px solid var(--sage-green);
+        }
+        
+        .btn-outline:hover {
+            background: var(--sage-green);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        /* Modern moisture bars */
+        .moisture-bar {
+            background: rgba(163, 201, 168, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 12px;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+        
+        .moisture-fill {
+            background: linear-gradient(90deg, var(--fresh-green), var(--deep-green));
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.8s ease;
+        }
+        
+        /* Modern table design */
+        .schedule-table {
+            background: var(--cream-white);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--soft-shadow);
+        }
+        
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .schedule-table th {
+            background: linear-gradient(135deg, var(--sage-green), var(--fresh-green));
+            color: white;
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .schedule-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(163, 201, 168, 0.1);
+            color: var(--warm-gray);
+        }
+        
+        .schedule-table tr:hover {
+            background: rgba(163, 201, 168, 0.05);
+        }
+        
+        /* Modern status badges */
+        .status-scheduled {
+            background: linear-gradient(135deg, var(--fresh-green), var(--deep-green));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status-rain {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .status-skip {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--warm-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        /* Modern sensor config */
+        .sensor-config {
+            background: linear-gradient(135deg, rgba(163, 201, 168, 0.1), rgba(255, 253, 249, 0.8));
+            border: 1px solid rgba(163, 201, 168, 0.2);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .sensor-config h4 {
+            color: var(--deep-green);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .sensor-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sensor-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sensor-field label {
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sensor-field select,
+        .sensor-field input {
+            padding: 0.75rem;
+            border: 1px solid rgba(163, 201, 168, 0.3);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--cream-white);
+            transition: border-color 0.3s ease;
+        }
+        
+        .sensor-field select:focus,
+        .sensor-field input:focus {
+            outline: none;
+            border-color: var(--fresh-green);
+            box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+        }
+        
+        /* Modern modal */
+        .modal-content {
+            background: var(--cream-white);
+            border-radius: var(--card-radius);
+            box-shadow: 0 20px 40px rgba(0,0,0,.15);
+            border: 1px solid rgba(163, 201, 168, 0.2);
+        }
+        
+        .modal-header h3 {
+            color: var(--deep-green);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        /* Modern footer */
+        footer {
+            background: linear-gradient(135deg, var(--peach-cream), var(--warm-beige));
+            border-top: 1px solid rgba(163, 201, 168, 0.2);
+            color: var(--warm-gray);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .plan-card {
+                padding: 1.5rem;
+            }
+            
+            .sensor-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+                padding: 0.75rem 1.25rem;
+            }
+        }
+        
+        /* Background video styling */
+        .background-simulation.crop-simulation {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: var(--card-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--soft-shadow);
+        }
+        
+        .background-simulation.crop-simulation video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            filter: saturate(120%) contrast(110%);
+        }
+        
+        .background-simulation.crop-simulation .simulation-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(247, 230, 210, 0.8), rgba(243, 221, 198, 0.6));
+            pointer-events: none;
+        }
+        
+        /* Callout styling */
+        .callout {
+            background: linear-gradient(135deg, rgba(163, 201, 168, 0.15), rgba(255, 253, 249, 0.8)) !important;
+            border-left: 4px solid var(--fresh-green) !important;
+            border-radius: var(--card-radius) !important;
+            color: var(--warm-gray) !important;
+            font-weight: 500 !important;
+            margin: 1.5rem 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+
+
+
+
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+
+
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Simulation -->
+    <div class="background-simulation crop-simulation">
+        <video id="irrigationBgVideo" autoplay muted loop playsinline preload="auto">
+            <source src="videos/irrigation.mp4" type="video/mp4">
+        </video>
+        <div class="simulation-overlay"></div>
+    </div>
+
+    <!-- Irrigation Schedule Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tint"></i> Climate-Smart Irrigation Schedule</h2>
+            <p class="section-subtitle">Balance scarce water resources with conservation agriculture timelines and forecasted rainfall.</p>
+            <div class="callout" style="background:rgba(56,189,248,.12);border-left:4px solid #0ea5e9;padding:16px 20px;border-radius:12px;margin:18px 0;color:#0f172a;">
+                <strong>Seasonal cue:</strong> Farmers reporting crop loss from recent droughts can toggle deficit irrigation plans below to prioritise maize tasseling stages and legumes under mulched plots.
+            </div>
+            
+            <div class="planning-cards">
+                <div class="plan-card">
+                    <h3><i class="fas fa-tint"></i> Current Soil Moisture</h3>
+                    <p>Real-time monitoring of soil moisture levels across your fields</p>
+                    <div class="irrigation-controls">
+                        <div class="moisture-level">
+                            <label>Field 1 - Current Soil Moisture: <span id="moistureValue1">65%</span></label>
+                            <div class="moisture-bar">
+                                <div class="moisture-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="moisture-level">
+                            <label>Field 2 - Current Soil Moisture: <span id="moistureValue2">72%</span></label>
+                            <div class="moisture-bar">
+                                <div class="moisture-fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                        <div class="moisture-level">
+                            <label>Field 3 - Current Soil Moisture: <span id="moistureValue3">58%</span></label>
+                            <div class="moisture-bar">
+                                <div class="moisture-fill" style="width: 58%;"></div>
+                            </div>
+                        </div>
+                        <div class="irrigation-actions">
+                            <button class="btn btn-primary" onclick="openIrrigationModal('start')"><i class="fas fa-play"></i> Start Irrigation</button>
+                            <button class="btn btn-outline" onclick="openIrrigationModal('stop')"><i class="fas fa-stop"></i> Stop Irrigation</button>
+                            <button class="btn btn-outline" onclick="openIrrigationModal('schedule')"><i class="fas fa-clock"></i> Schedule</button>
+                        </div>
+                        <div class="sensor-setup-note" style="margin-top:12px;font-size:.9rem;color:var(--muted);">
+                            <i class="fas fa-info-circle"></i> Connect soil-moisture sensors to enable automatic triggers.
+                        </div>
+                    </div>
+                    <!-- Sensor Configuration Panel -->
+                    <div class="sensor-config" id="sensorConfig">
+                        <h4><i class="fas fa-microchip"></i> Sensor Configuration</h4>
+                        <div class="sensor-fields">
+                            <div class="sensor-field">
+                                <label>Field 1 Sensor</label>
+                                <select id="sensorField1" onchange="saveSensorConfig()">
+                                    <option value="">-- Select Sensor --</option>
+                                    <option value="SM-001">SM-001 (Capacitive)</option>
+                                    <option value="SM-002">SM-002 (Tensio)</option>
+                                    <option value="SM-003">SM-003 (VWC)</option>
+                                </select>
+                            </div>
+                            <div class="sensor-field">
+                                <label>Start Trigger (%)</label>
+                                <input type="number" id="startTrigger1" min="10" max="90" value="45" onchange="saveSensorConfig()">
+                            </div>
+                            <div class="sensor-field">
+                                <label>Stop Trigger (%)</label>
+                                <input type="number" id="stopTrigger1" min="10" max="90" value="75" onchange="saveSensorConfig()">
+                            </div>
+                            <div class="sensor-field">
+                                <label>Field 2 Sensor</label>
+                                <select id="sensorField2" onchange="saveSensorConfig()">
+                                    <option value="">-- Select Sensor --</option>
+                                    <option value="SM-004">SM-004 (Capacitive)</option>
+                                    <option value="SM-005">SM-005 (Tensio)</option>
+                                    <option value="SM-006">SM-006 (VWC)</option>
+                                </select>
+                            </div>
+                            <div class="sensor-field">
+                                <label>Start Trigger (%)</label>
+                                <input type="number" id="startTrigger2" min="10" max="90" value="40" onchange="saveSensorConfig()">
+                            </div>
+                            <div class="sensor-field">
+                                <label>Stop Trigger (%)</label>
+                                <input type="number" id="stopTrigger2" min="10" max="90" value="70" onchange="saveSensorConfig()">
+                            </div>
+                            <div class="sensor-field">
+                                <label>Field 3 Sensor</label>
+                                <select id="sensorField3" onchange="saveSensorConfig()">
+                                    <option value="">-- Select Sensor --</option>
+                                    <option value="SM-007">SM-007 (Capacitive)</option>
+                                    <option value="SM-008">SM-008 (Tensio)</option>
+                                    <option value="SM-009">SM-009 (VWC)</option>
+                                </select>
+                            </div>
+                            <div class="sensor-field">
+                                <label>Start Trigger (%)</label>
+                                <input type="number" id="startTrigger3" min="10" max="90" value="50" onchange="saveSensorConfig()">
+                            </div>
+                            <div class="sensor-field">
+                                <label>Stop Trigger (%)</label>
+                                <input type="number" id="stopTrigger3" min="10" max="90" value="80" onchange="saveSensorConfig()">
+                            </div>
+                        </div>
+                        <div class="sensor-actions">
+                            <button class="btn btn-primary" onclick="testSensors()">
+                                <i class="fas fa-vial"></i> Test Sensors
+                            </button>
+                            <button class="btn btn-outline" onclick="toggleAutoMode()">
+                                <i class="fas fa-robot"></i> <span id="autoModeText">Enable Auto Mode</span>
+                            </button>
+                            <button class="btn btn-outline" onclick="viewSensorData()">
+                                <i class="fas fa-chart-line"></i> View Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card">
+                    <h3><i class="fas fa-calendar-week"></i> Weekly Irrigation Schedule</h3>
+                    <div class="schedule-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Field</th>
+                                    <th>Guidance</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="irrigationScheduleBody">
+                                <!-- Filled by script -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Time Picker Modal -->
+    <div class="modal-overlay" id="irrigationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Set Irrigation Time</h3>
+                <button class="modal-close" onclick="closeIrrigationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="time-group">
+                    <label for="irrigationTime">Select Time</label>
+                    <input type="time" id="irrigationTime" required>
+                </div>
+                <div class="time-group" id="durationGroup" style="display:none;">
+                    <label for="irrigationDuration">Duration (minutes)</label>
+                    <input type="number" id="irrigationDuration" min="5" max="240" value="30">
+                </div>
+                <div class="time-group">
+                    <label for="irrigationField">Select Field</label>
+                    <select id="irrigationField">
+                        <option value="1">Field 1</option>
+                        <option value="2">Field 2</option>
+                        <option value="3">Field 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeIrrigationModal()">Cancel</button>
+                <button class="btn btn-primary" id="modalConfirmBtn" onclick="confirmIrrigationAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/crop-planning.js"></script>
+    <script>
+        // Global sensor state
+        let sensorConfig = {};
+        let autoModeEnabled = false;
+        let currentAction = '';
+
+        // Load saved sensor configuration
+        function loadSensorConfig() {
+            try {
+                const saved = localStorage.getItem('irrigationSensorConfig');
+                if (saved) {
+                    sensorConfig = JSON.parse(saved);
+                    // Restore form values
+                    Object.keys(sensorConfig).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) element.value = sensorConfig[key];
+                    });
+                }
+                const autoMode = localStorage.getItem('irrigationAutoMode');
+                if (autoMode === 'true') {
+                    autoModeEnabled = true;
+                    document.getElementById('autoModeText').textContent = 'Disable Auto Mode';
+                }
+            } catch (e) {
+                console.warn('Failed to load sensor config:', e);
+            }
+        }
+
+        // Save sensor configuration
+        function saveSensorConfig() {
+            const fields = ['sensorField1', 'startTrigger1', 'stopTrigger1', 'sensorField2', 'startTrigger2', 'stopTrigger2', 'sensorField3', 'startTrigger3', 'stopTrigger3'];
+            fields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) sensorConfig[id] = element.value;
+            });
+            try {
+                localStorage.setItem('irrigationSensorConfig', JSON.stringify(sensorConfig));
+            } catch (e) {
+                console.warn('Failed to save sensor config:', e);
+            }
+        }
+
+        // Toggle auto mode
+        function toggleAutoMode() {
+            autoModeEnabled = !autoModeEnabled;
+            localStorage.setItem('irrigationAutoMode', autoModeEnabled);
+            document.getElementById('autoModeText').textContent = autoModeEnabled ? 'Disable Auto Mode' : 'Enable Auto Mode';
+            
+            if (autoModeEnabled) {
+                startAutoIrrigation();
+                alert('Auto irrigation mode enabled. System will monitor sensors and trigger irrigation automatically.');
+            } else {
+                stopAutoIrrigation();
+                alert('Auto irrigation mode disabled.');
+            }
+        }
+
+        // Start auto irrigation monitoring
+        function startAutoIrrigation() {
+            // Simulate sensor monitoring
+            setInterval(() => {
+                if (!autoModeEnabled) return;
+                
+                // Check each field
+                for (let field = 1; field <= 3; field++) {
+                    const sensorId = sensorConfig[`sensorField${field}`];
+                    const startTrigger = parseInt(sensorConfig[`startTrigger${field}`]) || 45;
+                    const stopTrigger = parseInt(sensorConfig[`stopTrigger${field}`]) || 75;
+                    
+                    if (sensorId) {
+                        // Simulate sensor reading (in real app, this would come from actual sensors)
+                        const currentMoisture = simulateSensorReading(field);
+                        updateMoistureDisplay(field, currentMoisture);
+                        
+                        // Auto trigger logic
+                        if (currentMoisture <= startTrigger && !isIrrigating(field)) {
+                            autoStartIrrigation(field);
+                        } else if (currentMoisture >= stopTrigger && isIrrigating(field)) {
+                            autoStopIrrigation(field);
+                        }
+                    }
+                }
+            }, 5000); // Check every 5 seconds
+        }
+
+        // Stop auto irrigation
+        function stopAutoIrrigation() {
+            // Clear intervals would go here in a real implementation
+        }
+
+        // Simulate sensor reading
+        function simulateSensorReading(field) {
+            // In a real app, this would read from actual sensors
+            const baseValues = {1: 65, 2: 72, 3: 58};
+            const variation = Math.random() * 10 - 5; // ±5% variation
+            return Math.max(0, Math.min(100, baseValues[field] + variation));
+        }
+
+        // Update moisture display
+        function updateMoistureDisplay(field, moisture) {
+            const valueElement = document.getElementById(`moistureValue${field}`);
+            const fillElement = document.querySelector(`#moistureValue${field}`).parentElement.nextElementSibling.querySelector('.moisture-fill');
+            
+            if (valueElement) valueElement.textContent = Math.round(moisture) + '%';
+            if (fillElement) fillElement.style.width = moisture + '%';
+        }
+
+        // Check if field is currently irrigating
+        function isIrrigating(field) {
+            // In a real app, this would check actual irrigation status
+            return window[`irrigatingField${field}`] || false;
+        }
+
+        // Auto start irrigation
+        function autoStartIrrigation(field) {
+            console.log(`Auto-starting irrigation for Field ${field}`);
+            window[`irrigatingField${field}`] = true;
+            // In a real app, this would trigger actual irrigation hardware
+            showNotification(`Irrigation started automatically for Field ${field}`, 'success');
+        }
+
+        // Auto stop irrigation
+        function autoStopIrrigation(field) {
+            console.log(`Auto-stopping irrigation for Field ${field}`);
+            window[`irrigatingField${field}`] = false;
+            // In a real app, this would stop actual irrigation hardware
+            showNotification(`Irrigation stopped automatically for Field ${field}`, 'success');
+        }
+
+        // Test sensors
+        function testSensors() {
+            let testResults = [];
+            for (let field = 1; field <= 3; field++) {
+                const sensorId = sensorConfig[`sensorField${field}`];
+                if (sensorId) {
+                    const reading = simulateSensorReading(field);
+                    testResults.push(`Field ${field} (${sensorId}): ${Math.round(reading)}%`);
+                }
+            }
+            
+            if (testResults.length > 0) {
+                alert('Sensor Test Results:\n' + testResults.join('\n'));
+            } else {
+                alert('No sensors configured. Please assign sensors to fields first.');
+            }
+        }
+
+        // View sensor data
+        function viewSensorData() {
+            // In a real app, this would show historical sensor data charts
+            alert('Sensor data visualization would open here. This would show moisture trends over time.');
+        }
+
+        // Open irrigation modal
+        function openIrrigationModal(action) {
+            currentAction = action;
+            const modal = document.getElementById('irrigationModal');
+            const title = document.getElementById('modalTitle');
+            const durationGroup = document.getElementById('durationGroup');
+            
+            switch (action) {
+                case 'start':
+                    title.textContent = 'Start Irrigation';
+                    durationGroup.style.display = 'block';
+                    break;
+                case 'stop':
+                    title.textContent = 'Stop Irrigation';
+                    durationGroup.style.display = 'none';
+                    break;
+                case 'schedule':
+                    title.textContent = 'Schedule Irrigation';
+                    durationGroup.style.display = 'block';
+                    break;
+            }
+            
+            // Set default time to current time
+            const now = new Date();
+            document.getElementById('irrigationTime').value = now.toTimeString().slice(0, 5);
+            
+            modal.classList.add('active');
+        }
+
+        // Close irrigation modal
+        function closeIrrigationModal() {
+            document.getElementById('irrigationModal').classList.remove('active');
+        }
+
+        // Confirm irrigation action
+        function confirmIrrigationAction() {
+            const time = document.getElementById('irrigationTime').value;
+            const field = document.getElementById('irrigationField').value;
+            const duration = document.getElementById('irrigationDuration').value;
+            
+            if (!time) {
+                alert('Please select a time');
+                return;
+            }
+            
+            let message = '';
+            switch (currentAction) {
+                case 'start':
+                    message = `Irrigation will start at ${time} for Field ${field} for ${duration} minutes.`;
+                    window[`irrigatingField${field}`] = true;
+                    break;
+                case 'stop':
+                    message = `Irrigation will stop at ${time} for Field ${field}.`;
+                    window[`irrigatingField${field}`] = false;
+                    break;
+                case 'schedule':
+                    message = `Irrigation scheduled for ${time} on Field ${field} for ${duration} minutes.`;
+                    break;
+            }
+            
+            showNotification(message, 'success');
+            closeIrrigationModal();
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#2e7d32' : '#0288d1'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,.15);
+                z-index: 1000;
+                max-width: 300px;
+                font-size: .9rem;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 5000);
+        }
+
+        // Generate irrigation schedule from selected crop + rainy season advice
+        (function(){
+            const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            function getSavedCrop(){
+                try{ return localStorage.getItem('selectedCrop'); }catch(_){ return null; }
+            }
+            function getSeasonalRaininess(){
+                // Simple seasonal heuristic using getWeatherData() month mapping
+                try{
+                    const w = getWeatherData(); // from crop-planning.js
+                    const rainy = /High rainfall/i.test(w.rain);
+                    const moderate = /Moderate rainfall/i.test(w.rain);
+                    return { rainy, moderate };
+                }catch(_){
+                    return { rainy:false, moderate:false };
+                }
+            }
+            function cropIrrigationNotes(cropKey){
+                const notes = [];
+                if (!window.cropData || !cropData[cropKey] || !cropData[cropKey].irrigation) return notes;
+                const ir = cropData[cropKey].irrigation;
+                if (ir.stages && Array.isArray(ir.stages)) {
+                    ir.stages.filter(s => /CRITICAL/i.test(s.amount || s.stage || s.frequency)).forEach(s=>{
+                        notes.push('Critical: ' + s.stage + ' - ' + s.amount);
+                    });
+                }
+                if (ir.total) notes.push('Season total: ' + ir.total);
+                if (ir.method) notes.push('Method: ' + ir.method);
+                return notes;
+            }
+            function buildSchedule(){
+                const body = document.getElementById('irrigationScheduleBody');
+                if (!body) return;
+                body.innerHTML = '';
+                const cropKey = getSavedCrop() || 'maize';
+                const cropName = (window.cropData && cropData[cropKey] && cropData[cropKey].name) ? cropData[cropKey].name : cropKey;
+                const { rainy, moderate } = getSeasonalRaininess();
+                // Decide weekly plan
+                // Dry: 3 irrigations; Moderate: 2; Rainy: 1 with advice to monitor moisture
+                const eventsPerWeek = rainy ? 1 : (moderate ? 2 : 3);
+                const today = new Date();
+                const chosenDays = [];
+                for (let i=1; i<=7; i++){
+                    const d = new Date(today);
+                    d.setDate(today.getDate()+i);
+                    const dayName = DAYS[d.getDay()];
+                    chosenDays.push({date:d, day:dayName});
+                }
+                const irrigateIdx = rainy ? [2] : (moderate ? [1,4] : [1,3,5]); // positions in the 7-day list
+                const notes = cropIrrigationNotes(cropKey);
+                chosenDays.forEach((entry, idx) => {
+                    const irrigateToday = irrigateIdx.includes(idx);
+                    const isRain = rainy && irrigateToday;
+                    const statusClass = isRain ? 'status-rain' : (irrigateToday ? 'status-scheduled' : 'status-skip');
+                    const statusText = isRain ? 'Rain expected' : (irrigateToday ? 'Irrigate' : 'Skip');
+                    const guidance = irrigateToday
+                        ? (rainy ? 'Monitor soil moisture; irrigate only if < 60%' :
+                           moderate ? (idx===irrigateIdx[0] ? 'Irrigate 20-30mm' : 'Irrigate 15-25mm')
+                                    : (idx===irrigateIdx[0] ? 'Irrigate 25-35mm' : idx===irrigateIdx[1] ? 'Irrigate 20-30mm' : 'Irrigate 20-25mm'))
+                        : 'No irrigation planned';
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${entry.day}</td>
+                        <td>${cropName}</td>
+                        <td>${guidance}</td>
+                        <td><span class="${statusClass}">${statusText}</span></td>
+                    `;
+                    body.appendChild(tr);
+                });
+                // Add a row for notes
+                if (notes.length){
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td colspan="4"><strong>Notes:</strong> ${notes.join(' • ')}</td>
+                    `;
+                    body.appendChild(tr);
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                loadSensorConfig();
+                buildSchedule();
+                if (autoModeEnabled) {
+                    startAutoIrrigation();
+                }
+            });
+            // Rebuild if crop selection changes in other tab
+            window.addEventListener('storage', function(e){
+                if (e.key === 'selectedCrop') buildSchedule();
+            });
+        })();
+
+        // Close modal when clicking outside
+        document.getElementById('irrigationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeIrrigationModal();
+            }
+        });
+    </script>
+</body>
+</html>

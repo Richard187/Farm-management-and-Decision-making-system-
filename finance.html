@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance & Budget Planning | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/finance.css">
+    <style>
+        header {
+            background: linear-gradient(135deg, #1A2B4D 0%, #2D4F8B 100%);
+            border-bottom: 3px solid #D4AF37;
+        }
+
+        .logo .logo-text { color: #FFFFFF; }
+        .logo i { color: #D4AF37; }
+
+        nav a {
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+        nav a:hover, nav a.active {
+            color: #D4AF37;
+            background: rgba(255, 255, 255, 0.10);
+        }
+        nav a::after {
+            background: #D4AF37;
+            box-shadow: none;
+        }
+
+        .dropdown-menu {
+            background: #FFFFFF;
+            border: 1px solid #E8E8E8;
+        }
+        .dropdown-menu a {
+            color: #333333;
+        }
+        .dropdown-menu a:hover {
+            background-color: rgba(74, 123, 199, 0.10);
+            color: #2D4F8B;
+        }
+        .dropdown-menu a i {
+            color: #2D4F8B;
+        }
+        /* Modern Finance Theme */
+        :root {
+            --finance-green: #2E7D32;
+            --light-green: #4CAF50;
+            --budget-blue: #1976D2;
+            --warning-orange: #FF9800;
+            --success-green: #388E3C;
+            --background-cream: #FFFDF9;
+            --card-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            --border-radius: 16px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--background-cream) 0%, #E8F5E8 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--finance-green), var(--light-green));
+            color: white;
+            border-radius: var(--border-radius);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .finance-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(46, 125, 50, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .finance-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--finance-green);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(46, 125, 50, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--finance-green);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+
+        .btn {
+            border-radius: 12px;
+            font-weight: 500;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--finance-green), var(--light-green));
+            color: white;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--finance-green);
+            border: 2px solid var(--light-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-green);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .budget-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .budget-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(46, 125, 50, 0.1);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .budget-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--finance-green), var(--light-green));
+        }
+
+        .budget-card.farmer-budget::before {
+            background: linear-gradient(90deg, var(--budget-blue), #42A5F5);
+        }
+
+        .budget-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .budget-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--finance-green), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .farmer-budget .budget-icon {
+            background: linear-gradient(135deg, var(--budget-blue), #42A5F5);
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .budget-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--finance-green);
+        }
+
+        .calculator-result {
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(255, 253, 249, 0.8));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .result-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .result-item span:first-child {
+            display: block;
+            color: var(--finance-green);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-item span:last-child {
+            display: block;
+            color: var(--finance-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .crop-inputs {
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(255, 253, 249, 0.8));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .input-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .input-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .input-item .label {
+            display: block;
+            color: var(--finance-green);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-item .value {
+            display: block;
+            color: var(--finance-green);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 253, 249, 0.8));
+            border-left: 4px solid var(--warning-orange);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .recommendation-box h4 {
+            color: var(--warning-orange);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .help-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .budget-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-coins"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle active"><i class="fas fa-coins"></i> Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Finance Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-calculator"></i> Farm Finance Calculator</h2>
+            <p class="section-subtitle">Plan your farming budget and calculate investment returns based on your crop planning</p>
+
+            <!-- Crop Planning Integration -->
+            <div class="crop-inputs">
+                <h3><i class="fas fa-seedling"></i> Your Crop Planning Data</h3>
+                <p class="help-text">This information is automatically loaded from your crop planning. Update your crop plans to see accurate budget calculations.</p>
+                
+                <div class="input-summary" id="cropSummary">
+                    <div class="input-item">
+                        <span class="label">Farm Size</span>
+                        <span class="value" id="farmSize">2.5 hectares</span>
+                    </div>
+                    <div class="input-item">
+                        <span class="label">Crops Planned</span>
+                        <span class="value" id="cropsPlanned">Maize, Beans, Tomatoes</span>
+                    </div>
+                    <div class="input-item">
+                        <span class="label">Season</span>
+                        <span class="value" id="season">2024/2025 Rainy Season</span>
+                    </div>
+                    <div class="input-item">
+                        <span class="label">Expected Yield</span>
+                        <span class="value" id="expectedYield">4.2 tons/ha</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline" onclick="updateCropData()">
+                    <i class="fas fa-sync"></i> Update from Crop Planning
+                </button>
+            </div>
+
+            <!-- Season Budget Planning -->
+            <div class="finance-card">
+                <h3><i class="fas fa-clipboard-list"></i> Season Budget Planning</h3>
+                <p>Compare your planned budget with our recommended budget for maximum output</p>
+
+                <div class="budget-comparison">
+                    <div class="budget-card farmer-budget">
+                        <div class="budget-header">
+                            <div class="budget-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Your Planned Budget</h4>
+                                <p>Based on your inputs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="budget-items" id="farmerBudgetItems">
+                            <div class="budget-item">
+                                <span>Seeds</span>
+                                <span>ZMW <input type="number" id="farmerSeeds" value="800" min="0" style="width: 100px; padding: 0.5rem;"></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Fertilizer</span>
+                                <span>ZMW <input type="number" id="farmerFertilizer" value="1200" min="0" style="width: 100px; padding: 0.5rem;"></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Pesticides</span>
+                                <span>ZMW <input type="number" id="farmerPesticides" value="400" min="0" style="width: 100px; padding: 0.5rem;"></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Labor</span>
+                                <span>ZMW <input type="number" id="farmerLabor" value="600" min="0" style="width: 100px; padding: 0.5rem;"></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Equipment</span>
+                                <span>ZMW <input type="number" id="farmerEquipment" value="500" min="0" style="width: 100px; padding: 0.5rem;"></span>
+                            </div>
+                            <div class="budget-item">
+                                <span><strong>Total</strong></span>
+                                <span><strong>ZMW <span id="farmerTotal">3500</span></strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="budget-card">
+                        <div class="budget-header">
+                            <div class="budget-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h4>System Recommended Budget</h4>
+                                <p>For maximum output</p>
+                            </div>
+                        </div>
+                        
+                        <div class="budget-items" id="systemBudgetItems">
+                            <div class="budget-item">
+                                <span>Seeds (Quality)</span>
+                                <span>ZMW <span id="systemSeeds">1200</span></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Fertilizer (Optimal)</span>
+                                <span>ZMW <span id="systemFertilizer">1800</span></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Pesticides (Preventive)</span>
+                                <span>ZMW <span id="systemPesticides">700</span></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Labor (Efficient)</span>
+                                <span>ZMW <span id="systemLabor">800</span></span>
+                            </div>
+                            <div class="budget-item">
+                                <span>Equipment (Modern)</span>
+                                <span>ZMW <span id="systemEquipment">1000</span></span>
+                            </div>
+                            <div class="budget-item">
+                                <span><strong>Total</strong></span>
+                                <span><strong>ZMW <span id="systemTotal">5500</span></strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-box">
+                    <h4><i class="fas fa-lightbulb"></i> Budget Recommendation</h4>
+                    <p id="budgetRecommendation">Based on your farm size and crop selection, we recommend increasing your fertilizer budget by 50% for optimal yields. The additional ZMW 600 investment could increase your revenue by ZMW 2,400.</p>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveBudgetComparison()">
+                    <i class="fas fa-save"></i> Save Budget Plan
+                </button>
+            </div>
+
+            <!-- Investment Calculator -->
+            <div class="finance-card">
+                <h3><i class="fas fa-chart-line"></i> Investment Calculator</h3>
+                <p>Calculate potential returns on farming equipment and infrastructure investments</p>
+                
+                <div class="form-group">
+                    <label for="investmentType">What do you want to invest in?</label>
+                    <select id="investmentType" onchange="updateInvestmentDefaults()">
+                        <option value="irrigation">Water Pump & Irrigation System</option>
+                        <option value="solar">Solar Power System</option>
+                        <option value="greenhouse">Greenhouse Structure</option>
+                        <option value="equipment">Tractor or Farming Equipment</option>
+                        <option value="storage">Crop Storage Facility</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <div class="form-group">
+                            <label for="investmentAmount">Investment Amount (ZMW)</label>
+                            <input type="number" id="investmentAmount" value="15000" min="1000" step="500">
+                            <p class="help-text">Total cost of the equipment/system</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="expectedLifespan">How many years will it last?</label>
+                            <input type="number" id="expectedLifespan" value="10" min="1" max="20">
+                            <p class="help-text">Expected useful life of the investment</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="annualSavings">Annual Savings/Income (ZMW)</label>
+                            <input type="number" id="annualSavings" value="4500" min="100" step="100">
+                            <p class="help-text">Money saved or earned per year from this investment</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="maintenanceCost">Annual Maintenance (ZMW)</label>
+                            <input type="number" id="maintenanceCost" value="500" min="0" step="50">
+                            <p class="help-text">Yearly maintenance costs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="calculateInvestment()">
+                    <i class="fas fa-calculator"></i> Calculate Returns
+                </button>
+
+                <div class="calculator-result" id="investmentResult" style="display: none;">
+                    <h4>Investment Analysis</h4>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span>Payback Period</span>
+                            <span id="paybackPeriod">3.3 years</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total Profit</span>
+                            <span id="totalProfit">ZMW 30,000</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Annual ROI</span>
+                            <span id="annualROI">27%</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Net Present Value</span>
+                            <span id="netPresentValue">ZMW 12,500</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-box" id="investmentRecommendation">
+                        <h4><i class="fas fa-thumbs-up"></i> Investment Recommendation</h4>
+                        <p>This is a good investment! The payback period is reasonable and you'll start making profit after 3.3 years.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Budget Tools -->
+            <div class="finance-card">
+                <h3><i class="fas fa-tools"></i> Quick Budget Tools</h3>
+                <p>Simple calculators for common farming decisions</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="quick-tool">
+                        <h4><i class="fas fa-seedling"></i> Seed Calculator</h4>
+                        <div class="form-group">
+                            <label>Area (hectares)</label>
+                            <input type="number" id="seedArea" value="1" min="0.1" step="0.1" onchange="calculateSeeds()">
+                        </div>
+                        <div class="form-group">
+                            <label>Crop Type</label>
+                            <select id="seedCrop" onchange="calculateSeeds()">
+                                <option value="maize">Maize</option>
+                                <option value="beans">Beans</option>
+                                <option value="tomatoes">Tomatoes</option>
+                            </select>
+                        </div>
+                        <div style="background: rgba(46, 125, 50, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                            <strong>Seed Required: <span id="seedRequired">25</span> kg</strong><br>
+                            <small>Cost: ZMW <span id="seedCost">400</span></small>
+                        </div>
+                    </div>
+
+                    <div class="quick-tool">
+                        <h4><i class="fas fa-flask"></i> Fertilizer Calculator</h4>
+                        <div class="form-group">
+                            <label>Area (hectares)</label>
+                            <input type="number" id="fertArea" value="1" min="0.1" step="0.1" onchange="calculateFertilizer()">
+                        </div>
+                        <div class="form-group">
+                            <label>Soil Type</label>
+                            <select id="soilType" onchange="calculateFertilizer()">
+                                <option value="sandy">Sandy Soil</option>
+                                <option value="clay">Clay Soil</option>
+                                <option value="loam">Loam Soil</option>
+                            </select>
+                        </div>
+                        <div style="background: rgba(46, 125, 50, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                            <strong>Fertilizer Required: <span id="fertilizerRequired">200</span> kg</strong><br>
+                            <small>Cost: ZMW <span id="fertilizerCost">1200</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; <span id="currentYear"></span> AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script>
+        // Update footer year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Load crop planning data
+        function loadCropData() {
+            try {
+                const cropData = localStorage.getItem('cropPlanningData');
+                if (cropData) {
+                    const data = JSON.parse(cropData);
+                    document.getElementById('farmSize').textContent = data.farmSize || '2.5 hectares';
+                    document.getElementById('cropsPlanned').textContent = data.crops || 'Maize, Beans, Tomatoes';
+                    document.getElementById('season').textContent = data.season || '2024/2025 Rainy Season';
+                    document.getElementById('expectedYield').textContent = data.expectedYield || '4.2 tons/ha';
+                    
+                    // Update budget recommendations based on crop data
+                    updateBudgetRecommendations(data);
+                }
+            } catch (e) {
+                console.warn('Could not load crop data:', e);
+            }
+        }
+
+        // Update budget recommendations based on crop planning
+        function updateBudgetRecommendations(cropData) {
+            const farmSize = parseFloat(cropData.farmSize) || 2.5;
+            
+            // System recommended budget calculations
+            const systemSeeds = Math.round(480 * farmSize); // ZMW 480 per hectare
+            const systemFertilizer = Math.round(720 * farmSize); // ZMW 720 per hectare
+            const systemPesticides = Math.round(280 * farmSize); // ZMW 280 per hectare
+            const systemLabor = Math.round(320 * farmSize); // ZMW 320 per hectare
+            const systemEquipment = Math.round(400 * farmSize); // ZMW 400 per hectare
+            
+            document.getElementById('systemSeeds').textContent = systemSeeds;
+            document.getElementById('systemFertilizer').textContent = systemFertilizer;
+            document.getElementById('systemPesticides').textContent = systemPesticides;
+            document.getElementById('systemLabor').textContent = systemLabor;
+            document.getElementById('systemEquipment').textContent = systemEquipment;
+            document.getElementById('systemTotal').textContent = systemSeeds + systemFertilizer + systemPesticides + systemLabor + systemEquipment;
+            
+            // Update recommendation
+            const recommendation = `Based on your ${farmSize} hectare farm, we recommend investing ZMW ${systemFertilizer} in quality fertilizer for optimal yields. This could increase your revenue by ZMW ${Math.round(systemFertilizer * 1.5)}.`;
+            document.getElementById('budgetRecommendation').textContent = recommendation;
+        }
+
+        // Update crop data from crop planning
+        function updateCropData() {
+            loadCropData();
+            showNotification('Crop planning data updated successfully!', 'success');
+        }
+
+        // Calculate farmer budget total
+        function calculateFarmerBudget() {
+            const seeds = parseFloat(document.getElementById('farmerSeeds').value) || 0;
+            const fertilizer = parseFloat(document.getElementById('farmerFertilizer').value) || 0;
+            const pesticides = parseFloat(document.getElementById('farmerPesticides').value) || 0;
+            const labor = parseFloat(document.getElementById('farmerLabor').value) || 0;
+            const equipment = parseFloat(document.getElementById('farmerEquipment').value) || 0;
+            
+            const total = seeds + fertilizer + pesticides + labor + equipment;
+            document.getElementById('farmerTotal').textContent = total;
+        }
+
+        // Add event listeners for farmer budget inputs
+        ['farmerSeeds', 'farmerFertilizer', 'farmerPesticides', 'farmerLabor', 'farmerEquipment'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateFarmerBudget);
+        });
+
+        // Save budget comparison
+        function saveBudgetComparison() {
+            const budgetData = {
+                farmerBudget: {
+                    seeds: document.getElementById('farmerSeeds').value,
+                    fertilizer: document.getElementById('farmerFertilizer').value,
+                    pesticides: document.getElementById('farmerPesticides').value,
+                    labor: document.getElementById('farmerLabor').value,
+                    equipment: document.getElementById('farmerEquipment').value,
+                    total: document.getElementById('farmerTotal').textContent
+                },
+                systemBudget: {
+                    seeds: document.getElementById('systemSeeds').textContent,
+                    fertilizer: document.getElementById('systemFertilizer').textContent,
+                    pesticides: document.getElementById('systemPesticides').textContent,
+                    labor: document.getElementById('systemLabor').textContent,
+                    equipment: document.getElementById('systemEquipment').textContent,
+                    total: document.getElementById('systemTotal').textContent
+                },
+                savedAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('farmBudgetData', JSON.stringify(budgetData));
+            showNotification('Budget plan saved successfully!', 'success');
+        }
+
+        // Update investment defaults based on type
+        function updateInvestmentDefaults() {
+            const type = document.getElementById('investmentType').value;
+            const defaults = {
+                irrigation: { amount: 15000, lifespan: 10, savings: 4500, maintenance: 500 },
+                solar: { amount: 25000, lifespan: 15, savings: 6000, maintenance: 300 },
+                greenhouse: { amount: 35000, lifespan: 12, savings: 8000, maintenance: 800 },
+                equipment: { amount: 20000, lifespan: 8, savings: 5000, maintenance: 600 },
+                storage: { amount: 12000, lifespan: 15, savings: 3500, maintenance: 400 }
+            };
+            
+            const config = defaults[type];
+            document.getElementById('investmentAmount').value = config.amount;
+            document.getElementById('expectedLifespan').value = config.lifespan;
+            document.getElementById('annualSavings').value = config.savings;
+            document.getElementById('maintenanceCost').value = config.maintenance;
+        }
+
+        // Calculate investment returns
+        function calculateInvestment() {
+            const amount = parseFloat(document.getElementById('investmentAmount').value) || 0;
+            const lifespan = parseFloat(document.getElementById('expectedLifespan').value) || 1;
+            const annualSavings = parseFloat(document.getElementById('annualSavings').value) || 0;
+            const maintenance = parseFloat(document.getElementById('maintenanceCost').value) || 0;
+            
+            const netAnnualSavings = annualSavings - maintenance;
+            const totalSavings = netAnnualSavings * lifespan;
+            const totalProfit = totalSavings - amount;
+            const paybackYears = amount / netAnnualSavings;
+            const annualROI = (netAnnualSavings / amount) * 100;
+            
+            // Simple NPV calculation (assuming 10% discount rate)
+            const discountRate = 0.10;
+            let npv = -amount;
+            for (let year = 1; year <= lifespan; year++) {
+                npv += netAnnualSavings / Math.pow(1 + discountRate, year);
+            }
+            
+            // Update display
+            document.getElementById('paybackPeriod').textContent = paybackYears.toFixed(1) + ' years';
+            document.getElementById('totalProfit').textContent = 'ZMW ' + Math.round(totalProfit).toLocaleString();
+            document.getElementById('annualROI').textContent = annualROI.toFixed(1) + '%';
+            document.getElementById('netPresentValue').textContent = 'ZMW ' + Math.round(npv).toLocaleString();
+            
+            // Show recommendation
+            let recommendation = '';
+            if (annualROI > 20) {
+                recommendation = 'Excellent investment! High return potential with good payback period.';
+            } else if (annualROI > 10) {
+                recommendation = 'Good investment. Reasonable returns with acceptable risk.';
+            } else if (annualROI > 5) {
+                recommendation = 'Moderate investment. Consider if you have extra capital.';
+            } else {
+                recommendation = 'Low returns. Consider alternative investments or negotiate better terms.';
+            }
+            
+            document.getElementById('investmentRecommendation').innerHTML = `
+                <h4><i class="fas fa-thumbs-up"></i> Investment Recommendation</h4>
+                <p>${recommendation}</p>
+            `;
+            
+            document.getElementById('investmentResult').style.display = 'block';
+        }
+
+        // Quick calculators
+        function calculateSeeds() {
+            const area = parseFloat(document.getElementById('seedArea').value) || 1;
+            const crop = document.getElementById('seedCrop').value;
+            
+            const seedRates = {
+                maize: { rate: 25, cost: 16 }, // kg per hectare, cost per kg
+                beans: { rate: 40, cost: 20 },
+                tomatoes: { rate: 0.5, cost: 800 }
+            };
+            
+            const config = seedRates[crop];
+            const required = area * config.rate;
+            const cost = required * config.cost;
+            
+            document.getElementById('seedRequired').textContent = required;
+            document.getElementById('seedCost').textContent = cost;
+        }
+
+        function calculateFertilizer() {
+            const area = parseFloat(document.getElementById('fertArea').value) || 1;
+            const soil = document.getElementById('soilType').value;
+            
+            const fertilizerRates = {
+                sandy: { rate: 200, cost: 6 }, // kg per hectare, cost per kg
+                clay: { rate: 180, cost: 6 },
+                loam: { rate: 160, cost: 6 }
+            };
+            
+            const config = fertilizerRates[soil];
+            const required = area * config.rate;
+            const cost = required * config.cost;
+            
+            document.getElementById('fertilizerRequired').textContent = required;
+            document.getElementById('fertilizerCost').textContent = cost;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : '#2196F3'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,.15);
+                z-index: 1000;
+                max-width: 300px;
+                font-size: 0.9rem;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 5000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCropData();
+            calculateFarmerBudget();
+            updateInvestmentDefaults();
+            calculateSeeds();
+            calculateFertilizer();
+            
+            // Add CSS animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

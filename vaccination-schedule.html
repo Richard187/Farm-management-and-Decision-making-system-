@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination Schedule | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/livestock.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                    <li><a href="market.html" class="nav-link">Market</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Simulation -->
+    <div class="background-simulation livestock-simulation">
+        <div class="simulation-overlay"></div>
+    </div>
+
+    <!-- Vaccination Schedule Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-syringe"></i> Climate-Smart Vaccination Schedule</h2>
+            <p class="section-subtitle">Pull live herd numbers from Livestock Management and instantly generate the right vaccination plan for the species you select.</p>
+            <div class="livestock-callout">
+                <strong>Adoption insight:</strong> Farmers act faster when they see exact counts at risk. Sync your herds from <a href="livestock.html">Livestock Management</a> and keep every cohort on schedule.
+            </div>
+            
+            <div id="emptyState" class="empty-state" hidden>
+                <i class="fas fa-info-circle"></i>
+                <h3>No synced livestock yet</h3>
+                <p>We could not find any animals saved from the Livestock page. Add or import livestock records first, then refresh this page to see tailored vaccination guidance.</p>
+                <a href="livestock.html" class="btn btn-primary"><i class="fas fa-paw"></i> Go to Livestock</a>
+                    </div>
+                    
+            <div id="schedulePanel" class="schedule-panel">
+                <div class="schedule-header">
+                    <div>
+                        <h3 id="selectedAnimalTitle">Select an animal group</h3>
+                        <p id="selectedAnimalSubtitle">Choose a species below to see vaccine priorities, due animals, and compliance insights.</p>
+                            </div>
+                    <div class="schedule-actions">
+                        <button id="refreshLivestock" class="btn btn-outline"><i class="fas fa-sync"></i> Refresh data</button>
+                        <a href="livestock.html" class="btn btn-primary"><i class="fas fa-edit"></i> Update livestock</a>
+                        </div>
+                    </div>
+                    
+                <div class="animal-selector" id="animalSelector"></div>
+
+                <div id="scheduleMetrics" class="schedule-metrics"></div>
+
+                <div id="scheduleCards" class="monitoring-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script>
+        const vaccineBlueprints = {
+            cattle: {
+                display: 'Cattle',
+                icon: 'fa-cow',
+                tagline: 'Protect dairy and beef herds before seasonal heat stress and grazing shifts.',
+                vaccines: [
+                    { name: 'Foot & Mouth (FMD)', timing: 'Every 6 months', window: 'Pre-rainy & pre-dry seasons', notes: 'All stock above 4 months. Booster for in-calf cows.' },
+                    { name: 'Blackleg & Anthrax', timing: 'Every 12 months', window: 'Early cool season', notes: 'Essential where soils hold spores; target weaners and replacements.' },
+                    { name: 'Lumpy Skin / Brucellosis', timing: 'After 8 months', window: 'Before vector season', notes: 'Test heifers and vaccinate once before breeding.' }
+                ]
+            },
+            goats: {
+                display: 'Goats',
+                icon: 'fa-paw',
+                tagline: 'CSA goat herds stay resilient with respiratory and enterotoxemia protection.',
+                vaccines: [
+                    { name: 'PPR (Goat plague)', timing: 'Every 12 months', window: 'Dry-to-wet transition', notes: 'Prioritise young females kept for breeding.' },
+                    { name: 'Enterotoxemia', timing: 'Every 6 months', window: 'Pre-kidding & mid dry season', notes: 'Give booster 4 weeks before kidding peaks.' },
+                    { name: 'CCPP', timing: 'Annual', window: 'Before cold snaps', notes: 'Critical for herds in communal kraals or along trade routes.' }
+                ]
+            },
+            sheep: {
+                display: 'Sheep',
+                icon: 'fa-sheep',
+                tagline: 'Synchronize flock immunity with lambing waves and parasite pressure.',
+                vaccines: [
+                    { name: 'Pasteurella / PPR', timing: 'Annual', window: '6 weeks pre-lambing', notes: 'Boost ewe antibodies for lamb protection.' },
+                    { name: 'Enterotoxemia (Pulpy kidney)', timing: 'Every 6 months', window: 'End of rains & start of dry season', notes: 'Higher grain diets increase risk—never skip boosters.' },
+                    { name: 'Blue Tongue / Rift Valley', timing: 'Vector season', window: 'Late summer', notes: 'Use where outbreaks are reported; coordinate with vets.' }
+                ]
+            },
+            poultry: {
+                display: 'Poultry',
+                icon: 'fa-egg',
+                tagline: 'Broilers and layers need tighter vaccine loops to match quick turnover.',
+                vaccines: [
+                    { name: 'Newcastle', timing: 'Day 7, 21, then quarterly', window: 'All year', notes: 'Oral drops or drinking water; repeat after heat waves.' },
+                    { name: 'Gumboro (IBD)', timing: 'Day 14 & 21', window: 'Broilers under 6 weeks', notes: 'Essential where litter is reused; maintain hygiene.' },
+                    { name: 'Fowl Pox / Coccidiosis', timing: '6-8 weeks or as advised', window: 'Dry season', notes: 'Vaccinate replacement pullets before they join layers.' }
+                ]
+            }
+        };
+
+        const scheduleState = {
+            data: {},
+            current: null
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            hydrateSchedule();
+            document.getElementById('refreshLivestock').addEventListener('click', () => hydrateSchedule(true));
+        });
+
+        function hydrateSchedule(showToast = false) {
+            scheduleState.data = fetchLivestockFromStorage();
+            const total = Object.values(scheduleState.data).reduce((sum, animals) => sum + animals.length, 0);
+            const panel = document.getElementById('schedulePanel');
+            const emptyState = document.getElementById('emptyState');
+
+            if (!total) {
+                panel.hidden = true;
+                emptyState.hidden = false;
+                return;
+            }
+
+            panel.hidden = false;
+            emptyState.hidden = true;
+            renderAnimalSelector();
+            if (showToast) {
+                showScheduleNotification('Livestock data refreshed from storage.');
+            }
+        }
+
+        function fetchLivestockFromStorage() {
+            const types = Object.keys(vaccineBlueprints);
+            let parsed = {};
+            try {
+                parsed = JSON.parse(localStorage.getItem('livestockData')) || {};
+            } catch (error) {
+                console.warn('Unable to parse livestock data', error);
+            }
+
+            const normalised = {};
+            types.forEach(type => {
+                if (Array.isArray(parsed[type])) {
+                    normalised[type] = parsed[type].filter(animal => (animal.status || 'alive') !== 'dead');
+                } else if (typeof parsed[type] === 'number') {
+                    normalised[type] = Array.from({ length: parsed[type] }, (_, index) => ({
+                        id: `${type}-${index + 1}`,
+                        status: 'alive',
+                        vaccinated: false
+                    }));
+                } else {
+                    normalised[type] = [];
+                }
+            });
+            return normalised;
+        }
+
+        function renderAnimalSelector() {
+            const selector = document.getElementById('animalSelector');
+            selector.innerHTML = '';
+            let firstAvailable = null;
+
+            Object.entries(vaccineBlueprints).forEach(([type, meta]) => {
+                const count = scheduleState.data[type]?.length || 0;
+                const button = document.createElement('button');
+                button.className = 'animal-chip';
+                button.dataset.animal = type;
+                button.innerHTML = `
+                    <span class="chip-icon"><i class="fas ${meta.icon}"></i></span>
+                    <div>
+                        <strong>${meta.display}</strong>
+                        <p>${count} animals synced</p>
+                    </div>
+                `;
+
+                if (!count) {
+                    button.disabled = true;
+                    button.classList.add('chip-disabled');
+                } else {
+                    if (!firstAvailable) firstAvailable = type;
+                    button.addEventListener('click', () => setCurrentAnimal(type));
+                }
+
+                selector.appendChild(button);
+            });
+
+            setCurrentAnimal(firstAvailable);
+        }
+
+        function setCurrentAnimal(type) {
+            scheduleState.current = type;
+            document.querySelectorAll('.animal-chip').forEach(chip => {
+                chip.classList.toggle('selected', chip.dataset.animal === type);
+            });
+            renderScheduleDetails();
+        }
+
+        function renderScheduleDetails() {
+            const type = scheduleState.current;
+            const titleEl = document.getElementById('selectedAnimalTitle');
+            const subtitleEl = document.getElementById('selectedAnimalSubtitle');
+            const metricsEl = document.getElementById('scheduleMetrics');
+            const cardsEl = document.getElementById('scheduleCards');
+
+            if (!type) {
+                titleEl.textContent = 'Select an animal group';
+                subtitleEl.textContent = 'Choose a species below to get tailored schedules.';
+                metricsEl.innerHTML = '';
+                cardsEl.innerHTML = '';
+                return;
+            }
+
+            const template = vaccineBlueprints[type];
+            const animals = scheduleState.data[type] || [];
+            const vaccinated = animals.filter(animal => animal.vaccinated).length;
+            const dueNow = animals.filter(animal => isDueSoon(animal)).length;
+            const nextDueDate = getNextDueDate(animals);
+            const compliantPercent = animals.length ? Math.round((vaccinated / animals.length) * 100) : 0;
+
+            titleEl.textContent = `${template.display} vaccination plan`;
+            subtitleEl.textContent = template.tagline;
+
+            metricsEl.innerHTML = `
+                ${buildMetricCard('Total animals', animals.length)}
+                ${buildMetricCard('Vaccinated', vaccinated)}
+                ${buildMetricCard('Due / overdue', dueNow)}
+                ${buildMetricCard('Next due date', nextDueDate ? formatDate(nextDueDate) : 'Not scheduled')}
+                ${buildMetricCard('Compliance', animals.length ? compliantPercent + '%' : '—')}
+            `;
+
+            cardsEl.innerHTML = `
+                ${buildUpcomingCard(animals)}
+                ${buildComplianceCard(animals, dueNow)}
+                ${buildBlueprintCard(template)}
+            `;
+        }
+
+        function buildMetricCard(label, value) {
+            return `
+                <div class="metric-card">
+                    <span class="metric-label">${label}</span>
+                    <span class="metric-value">${value}</span>
+                </div>
+            `;
+        }
+
+        function buildUpcomingCard(animals) {
+            const upcoming = animals
+                .map(animal => ({
+                    id: animal.id || 'Unnamed',
+                    vaccine: animal.vaccinationType || 'To be assigned',
+                    due: animal.nextVaccinationDate,
+                    urgent: isDueSoon(animal)
+                }))
+                .sort((a, b) => {
+                    if (!a.due) return -1;
+                    if (!b.due) return 1;
+                    return new Date(a.due) - new Date(b.due);
+                })
+                .slice(0, 4);
+
+            const content = upcoming.length
+                ? upcoming.map(item => `
+                    <div class="vaccine-item ${item.urgent ? 'urgent' : ''}">
+                        <span>${item.id} – ${item.vaccine}</span>
+                        <span>${item.due ? formatDate(item.due) : 'Set schedule'}</span>
+                    </div>
+                `).join('')
+                : '<p class="empty-note">No vaccination records yet. Log a schedule from the Livestock page.</p>';
+
+            return `
+                <div class="monitoring-card">
+                    <h4><i class="fas fa-calendar-check"></i> Upcoming vaccinations</h4>
+                    <div class="vaccination-list">${content}</div>
+                </div>
+            `;
+        }
+
+        function buildComplianceCard(animals, dueNow) {
+            const vaccinated = animals.filter(animal => animal.vaccinated).length;
+            const total = animals.length;
+            const scheduled = animals.filter(animal => animal.nextVaccinationDate).length;
+
+            return `
+                <div class="monitoring-card">
+                    <h4><i class="fas fa-clipboard-list"></i> Coverage snapshot</h4>
+                    <div class="records-summary">
+                        <div class="record-stat">
+                            <span>Vaccinated</span>
+                            <span>${vaccinated}</span>
+                        </div>
+                        <div class="record-stat">
+                            <span>Scheduled</span>
+                            <span>${scheduled}</span>
+                        </div>
+                        <div class="record-stat">
+                            <span>Due / overdue</span>
+                            <span>${dueNow}</span>
+                        </div>
+                        <div class="record-stat">
+                            <span>Unsynced animals</span>
+                            <span>${Math.max(0, total - scheduled)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function buildBlueprintCard(template) {
+            const entries = template.vaccines.map(rule => `
+                <li>
+                    <div>
+                        <strong>${rule.name}</strong>
+                        <p>${rule.notes}</p>
+                    </div>
+                    <span>${rule.timing}<br><small>${rule.window}</small></span>
+                </li>
+            `).join('');
+
+            return `
+                <div class="monitoring-card">
+                    <h4><i class="fas fa-map-signs"></i> Recommended programme</h4>
+                    <ul class="template-list">${entries}</ul>
+                </div>
+            `;
+        }
+
+        function isDueSoon(animal) {
+            if (!animal || animal.status === 'dead') return false;
+            if (!animal.vaccinated || !animal.nextVaccinationDate) return true;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return new Date(animal.nextVaccinationDate) <= today;
+        }
+
+        function getNextDueDate(animals) {
+            const dates = animals
+                .map(animal => animal.nextVaccinationDate)
+                .filter(Boolean)
+                .sort((a, b) => new Date(a) - new Date(b));
+            return dates[0] || null;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            if (Number.isNaN(date.getTime())) return 'Invalid date';
+            return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+        }
+
+        function showScheduleNotification(message) {
+            const note = document.createElement('div');
+            note.textContent = message;
+            note.className = 'schedule-toast';
+            document.body.appendChild(note);
+            setTimeout(() => note.classList.add('visible'), 10);
+            setTimeout(() => {
+                note.classList.remove('visible');
+                setTimeout(() => note.remove(), 300);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

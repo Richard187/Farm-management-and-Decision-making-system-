@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Planning | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/crop-planning.css">
+    <link rel="stylesheet" href="css/crop-wizard.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle active">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Crop Planning Content -->
+    <section class="page-content crop-planning-content">
+        <div class="container">
+            <!-- Wizard Mode Toggle -->
+            <div id="wizardToggle" style="display: block;">
+                <div class="wizard-toggle-header">
+                    <h2 class="section-title">Climate-Smart Crop Planning for Zambia</h2>
+                    <p class="section-subtitle">Use adoption research to align conservation tillage, crop rotation, and drought-tolerant varieties with your seasonal plan.</p>
+                    <div class="callout-box" style="background:#f2f8f4;border-left:4px solid #4a7c59;padding:18px 22px;border-radius:12px;margin:20px 0;color:#2c3e50;">
+                        <strong>Why it matters:</strong> Insights from Zambian smallholder studies show that past drought experience, gender roles, and trusted extension officers significantly shape CSA adoption. Start every plan by mapping who makes decisions and what shocks you are hedging against.
+                    </div>
+                    <button class="btn btn-primary btn-large" onclick="CropWizard.showWizard()" style="margin-top: 1rem; padding: 15px 30px; font-size: 1.1rem;">
+                        <i class="fas fa-magic"></i> Start Crop Planning Wizard
+                    </button>
+                    <p style="margin-top: 1rem; color: #6c757d;">
+                        <a href="#" onclick="CropWizard.showQuickView(); return false;" style="color: #4a7c59; text-decoration: underline;">Or browse crops quickly</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Wizard Container -->
+            <div id="wizardContainer" style="display: none;">
+                <div class="wizard-container">
+                    <div class="wizard-progress">
+                        <div class="wizard-progress-bar-container">
+                            <div class="wizard-progress-bar" style="width: 20%;"></div>
+                        </div>
+                        <div class="wizard-progress-text">Step 1 of 5</div>
+                    </div>
+                    <div id="wizardContent"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Plan Details View - Outside container for full width -->
+        <div id="planDetailsView" style="display: none; width: 100%; min-height: 100vh; padding: 40px 0;">
+            <div class="container">
+                <div id="planDetailsContainer" style="width: 100%;"></div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <!-- Quick View Mode (Original Crop Selection) -->
+            <div id="quickViewMode" style="display: none;">
+                <h2 class="section-title">Smart Crop Planning for African Farmers</h2>
+                <p class="section-subtitle">Select your crop and compare smart farming practices that match your socio-economic profile and climate risk exposure.</p>
+                <p style="max-width:720px;margin:0 auto 20px auto;color:#4a7c59;font-weight:500;">Not sure where to begin? Review the <a href="planting-calendar.html" style="color:#2c5f2d;text-decoration:underline;">smart farming guidelines</a> to see how maize, wheat, tobacco, and legumes respond to different conservation pathways.</p>
+                
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <button class="btn btn-outline" onclick="CropWizard.showWizard()">
+                        <i class="fas fa-magic"></i> Use Planning Wizard Instead
+                    </button>
+                </div>
+                
+                <!-- Crop Selection Card -->
+                <div class="crop-selection-card">
+                    <div class="crop-selector-wrapper">
+                        <h3><i class="fas fa-seedling"></i> Select Your Crop</h3>
+                        <p>Choose a crop to see expected yield and all inputs needed</p>
+                        <select id="cropSelector" class="crop-select">
+                            <option value="">-- Select a Crop --</option>
+                            <option value="maize">Maize (Corn)</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="tobacco">Tobacco</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="cabbage">Cabbage</option>
+                            <option value="sunflower">Sunflower</option>
+                            <option value="soybeans">Soya Beans</option>
+                            <option value="sorghum">Sorghum</option>
+                            <option value="millet">Millet</option>
+                            <option value="groundnuts">Groundnuts (Peanuts)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Crop Details Display -->
+            <div id="cropDetails" class="crop-details-container" style="display: none;">
+                <!-- Expected Yield -->
+                <div class="detail-card yield-card">
+                    <h3><i class="fas fa-chart-line"></i> Expected Yield</h3>
+                    <div class="yield-info">
+                        <div class="yield-value" id="expectedYield"></div>
+                        <div class="yield-note" id="yieldNote"></div>
+                    </div>
+                </div>
+
+                <!-- Planting Information -->
+                <div class="detail-card">
+                    <h3><i class="fas fa-calendar-check"></i> Planting Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>Best Planting Period:</strong>
+                            <span id="plantingPeriod"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Days to Maturity:</strong>
+                            <span id="daysToMaturity"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Soil Type:</strong>
+                            <span id="soilType"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Spacing:</strong>
+                            <span id="spacing"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Irrigation Requirements -->
+                <div class="detail-card">
+                    <h3><i class="fas fa-tint"></i> Irrigation Requirements</h3>
+                    <div id="irrigationDetails"></div>
+                    <div class="weather-advice" id="weatherAdvice"></div>
+                </div>
+
+                <!-- Fertilizer Requirements -->
+                <div class="detail-card">
+                    <h3><i class="fas fa-flask"></i> Fertilizer Requirements</h3>
+                    <div id="fertilizerDetails"></div>
+                </div>
+
+                <!-- Chemical Requirements -->
+                <div class="detail-card">
+                    <h3><i class="fas fa-spray-can"></i> Chemicals & Pest Control</h3>
+                    <div id="chemicalDetails"></div>
+                </div>
+
+                <!-- Harvest Information -->
+                <div class="detail-card">
+                    <h3><i class="fas fa-tractor"></i> Harvest Information</h3>
+                    <div id="harvestDetails"></div>
+                </div>
+
+                <!-- Complete Timeline -->
+                <div class="detail-card timeline-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Complete Growing Timeline</h3>
+                    <div id="timeline"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <!-- Load crop-planning.js first to make cropData available immediately -->
+    <script src="javascript/crop-planning.js"></script>
+    <!-- Then load service and wizard which depend on cropData -->
+    <script src="javascript/crop-service.js"></script>
+    <script src="javascript/crop-wizard.js"></script>
+    <script src="javascript/crop-plan-details.js"></script>
+    <script>
+        // Initialize wizard when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verify crop data is available immediately
+            if (window.cropData && Object.keys(window.cropData).length > 0) {
+                console.log('✓ Crop data loaded:', Object.keys(window.cropData).length, 'crops available');
+            } else {
+                console.warn('⚠ Crop data not loaded. Checking again...');
+                // Wait a moment for script to load, then check again
+                setTimeout(() => {
+                    if (window.cropData && Object.keys(window.cropData).length > 0) {
+                        console.log('✓ Crop data loaded on retry');
+                    } else {
+                        console.error('✗ Crop data still not available. Please refresh the page.');
+                    }
+                }, 500);
+            }
+
+            // Check if we should show wizard or quick view
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            const planId = urlParams.get('plan');
+            
+            // Extend CropWizard with UI toggle methods (define before using)
+            CropWizard.showWizard = function() {
+                const wizardToggle = document.getElementById('wizardToggle');
+                const quickViewMode = document.getElementById('quickViewMode');
+                const wizardContainer = document.getElementById('wizardContainer');
+                
+                if (wizardToggle) wizardToggle.style.display = 'none';
+                if (quickViewMode) quickViewMode.style.display = 'none';
+                if (wizardContainer) {
+                    wizardContainer.style.display = 'block';
+                    // Initialize wizard
+                    this.init('wizardContent');
+                }
+            };
+
+            CropWizard.showQuickView = function() {
+                const wizardToggle = document.getElementById('wizardToggle');
+                const wizardContainer = document.getElementById('wizardContainer');
+                const quickViewMode = document.getElementById('quickViewMode');
+                
+                if (wizardToggle) wizardToggle.style.display = 'none';
+                if (wizardContainer) wizardContainer.style.display = 'none';
+                if (quickViewMode) quickViewMode.style.display = 'block';
+            };
+
+            CropWizard.showWizardToggle = function() {
+                const wizardContainer = document.getElementById('wizardContainer');
+                const quickViewMode = document.getElementById('quickViewMode');
+                const wizardToggle = document.getElementById('wizardToggle');
+                
+                if (wizardContainer) wizardContainer.style.display = 'none';
+                if (quickViewMode) quickViewMode.style.display = 'none';
+                if (wizardToggle) wizardToggle.style.display = 'block';
+            };
+            
+            // Now determine what to show
+            if (mode === 'wizard' || urlParams.has('wizard')) {
+                // Small delay to ensure DOM is ready
+                setTimeout(() => {
+                    CropWizard.showWizard();
+                }, 50);
+            } else if (planId) {
+                // Show plan details if plan ID is provided
+                console.log('Loading plan details for:', planId);
+                
+                const planDetailsView = document.getElementById('planDetailsView');
+                const wizardToggle = document.getElementById('wizardToggle');
+                const quickViewMode = document.getElementById('quickViewMode');
+                const wizardContainer = document.getElementById('wizardContainer');
+                
+                // Hide all other views
+                if (wizardToggle) wizardToggle.style.display = 'none';
+                if (quickViewMode) quickViewMode.style.display = 'none';
+                if (wizardContainer) wizardContainer.style.display = 'none';
+                
+                // Show plan details view
+                if (planDetailsView) {
+                    planDetailsView.style.display = 'block';
+                    console.log('Plan details view displayed');
+                } else {
+                    console.error('planDetailsView element not found');
+                }
+                
+                // Initialize plan details - wait for scripts to load
+                let retryCount = 0;
+                const maxRetries = 50; // 5 seconds max wait
+                
+                const initPlanDetails = () => {
+                    retryCount++;
+                    
+                    if (typeof CropPlanDetails !== 'undefined' && typeof CropService !== 'undefined') {
+                        console.log('Initializing plan details...');
+                        const container = document.getElementById('planDetailsContainer');
+                        if (container) {
+                            container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading plan details...</div>';
+                        }
+                        CropPlanDetails.init(planId).then(() => {
+                            console.log('Plan details initialized successfully');
+                        }).catch((error) => {
+                            console.error('Error initializing plan details:', error);
+                            const container = document.getElementById('planDetailsContainer');
+                            if (container) {
+                                container.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i><p>Error loading plan details. Please refresh the page.</p></div>';
+                            }
+                        });
+                    } else if (retryCount < maxRetries) {
+                        setTimeout(initPlanDetails, 100);
+                    } else {
+                        console.error('CropPlanDetails or CropService not available after', maxRetries, 'retries');
+                        const container = document.getElementById('planDetailsContainer');
+                        if (container) {
+                            container.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i><p>Failed to load required scripts. Please refresh the page.</p></div>';
+                        }
+                    }
+                };
+                
+                // Start initialization
+                setTimeout(initPlanDetails, 100);
+            } else {
+                // Default: show wizard toggle
+                CropWizard.showWizardToggle();
+            }
+        });
+    </script>
+
+</body>
+</html>

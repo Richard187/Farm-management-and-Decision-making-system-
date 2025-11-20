@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart Pro | Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="crop-planning.html" class="nav-link">Crop Planning</a></li>
+                    <li><a href="livestock.html" class="nav-link">Livestock</a></li>
+                    <li><a href="finance.html" class="nav-link">Finance</a></li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                    <li><a href="market.html" class="nav-link">Market</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="location.href='index.html'"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary active"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Signup Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card auth-3d">
+                    <div class="auth-header">
+                        <div class="auth-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h1>Join AgriSmart Pro&rsquo;s Climate-Smart Network</h1>
+                        <p>Start your journey to resilient, data-informed farming rooted in Zambia and Africa.</p>
+                    </div>
+
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                                <i class="fas fa-user form-icon"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                                <i class="fas fa-user form-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <i class="fas fa-envelope form-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <i class="fas fa-phone form-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="farmType">Farm Type (for CSA profiling)</label>
+                            <select id="farmType" name="farmType" required>
+                                <option value="">Select Farm Type</option>
+                                <option value="crop">Crop Farming</option>
+                                <option value="livestock">Livestock</option>
+                                <option value="mixed">Mixed Farming</option>
+                                <option value="greenhouse">Greenhouse</option>
+                                <option value="aquaculture">Aquaculture</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <i class="fas fa-tractor form-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="farmSize">Farm Size (acres)</label>
+                            <input type="number" id="farmSize" name="farmSize" required placeholder="Enter farm size in acres">
+                            <i class="fas fa-map-marker-alt form-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                            <i class="fas fa-lock form-icon"></i>
+                            <span class="toggle-password" onclick="togglePassword('password')">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <i class="fas fa-lock form-icon"></i>
+                            <span class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="newsletter">
+                                <span class="checkmark"></span>
+                                Subscribe to our newsletter for farming tips and updates
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="index.html">Sign in here</a></p>
+                    </div>
+                    <div class="auth-float a1"></div>
+                    <div class="auth-float a2"></div>
+                    <div class="auth-float a3"></div>
+                </div>
+
+                <div class="auth-benefits">
+                    <h3>Why Choose AgriSmart Pro?</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Climate-Smart Analytics</h4>
+                                <p>See how gender, farm size, and shocks shape CSA adoption on your farm.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-cloud-sun"></i>
+                            <div>
+                                <h4>Climate Intelligence</h4>
+                                <p>Blend real-time weather with seasonal outlooks to protect crops and livestock.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-calculator"></i>
+                            <div>
+                                <h4>Climate Finance Tools</h4>
+                                <p>Track investments tied to conservation agriculture and access support programmes.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-people-arrows"></i>
+                            <div>
+                                <h4>Trusted Advisory Network</h4>
+                                <p>Connect with extension officers, agro-dealers, and peer champions who guide CSA adoption.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>AgriSmart Pro</h3>
+                    <p>Modern farm management solutions powered by AI and smart agriculture technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Dashboard</a></li>
+                        <li><a href="crop-planning.html"><i class="fas fa-chevron-right"></i> Crop Planning</a></li>
+                        <li><a href="livestock.html"><i class="fas fa-chevron-right"></i> Livestock</a></li>
+                        <li><a href="finance.html"><i class="fas fa-chevron-right"></i> Finance</a></li>
+                        <li><a href="weather.html"><i class="fas fa-chevron-right"></i> Weather</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@agrismartpro.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Farm Innovation Drive</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/market.css">
+</head>
+<body class="market-page">
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="media/farm-bg.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle active">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="market-prices">
+            <h2>Live Market Prices</h2>
+            <p class="section-subtitle" style="color:#e0f2e9;">Benchmark CSA-aligned commodities and inputs, from drought-tolerant maize to soil health amendments.</p>
+            <div class="feed-settings">
+                <button id="toggle-feed-settings" class="btn subtle-btn">Price Feed Settings</button>
+                <div id="feed-settings-panel" class="feed-settings-panel" style="display:none;">
+                    <div class="form-group">
+                        <label for="feed-url">API URL</label>
+                        <input id="feed-url" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="feed-key">API Key (optional)</label>
+                        <input id="feed-key" placeholder="your_api_key">
+                    </div>
+                    <div class="form-group">
+                        <label for="feed-mapping">Type Mapping (comma: type=symbol)</label>
+                        <input id="feed-mapping" placeholder="maize=MAIZE,wheat=WHEAT,soybeans=SOY">
+                    </div>
+                    <button id="save-feed-settings" class="btn">Save & Refresh</button>
+                </div>
+            </div>
+            <div class="ticker" id="market-ticker">
+                <div class="ticker-track" id="market-ticker-track"></div>
+            </div>
+            <div class="price-grid">
+                </div>
+        </div>
+
+        <div class="calculator">
+            <h2>Profit Calculator</h2>
+            <form id="profit-calculator">
+                <div class="form-group">
+                    <label for="crop">Crop/Livestock</label>
+                    <select id="crop" name="crop">
+                        <option value="maize">Maize</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="soybeans">Soybeans</option>
+                        <option value="tobacco">Tobacco</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="cattle">Cattle</option>
+                        <option value="goats">Goats</option>
+                        <option value="sheep">Sheep</option>
+                        <option value="pigs">Pigs</option>
+                        <option value="poultry">Poultry</option>
+                        <option value="fertilizer">Fertilizer</option>
+                        <option value="pesticides">Pesticides</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity (in kg or head)</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity">
+                </div>
+                <div class="form-group">
+                    <label for="price">Market Price</label>
+                    <input type="number" id="price" name="price" placeholder="Current market price" readonly>
+                </div>
+                <button type="submit" class="btn">Calculate</button>
+            </form>
+            <div id="profit-result"></div>
+        </div>
+
+        <section class="marketplace">
+            <h2>Farmer Marketplace</h2>
+            <div class="market-layout">
+                <div class="market-main">
+                    <div class="toolbar">
+                        <div class="filters">
+                            <select id="filter-category">
+                                <option value="all">All Categories</option>
+                                <option value="crops">Crops</option>
+                                <option value="livestock">Livestock</option>
+                                <option value="inputs">Inputs</option>
+                            </select>
+                            <select id="filter-type">
+                                <option value="all">All Types</option>
+                                <option value="maize">Maize</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="soybeans">Soybeans</option>
+                                <option value="tobacco">Tobacco</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="cattle">Cattle</option>
+                                <option value="goats">Goats</option>
+                                <option value="sheep">Sheep</option>
+                                <option value="pigs">Pigs</option>
+                                <option value="poultry">Poultry</option>
+                                <option value="fertilizer">Fertilizer</option>
+                                <option value="pesticides">Pesticides</option>
+                            </select>
+                        </div>
+                        <input id="search-input" type="search" placeholder="Search listings...">
+                    </div>
+                    <div id="listings-grid" class="listings-grid"></div>
+                </div>
+                <aside class="market-side">
+                    <div class="sell-card">
+                        <h3>Sell Something</h3>
+                        <form id="sell-form">
+                            <div class="form-group">
+                                <label for="sell-category">Category</label>
+                                <select id="sell-category" required>
+                                    <option value="crops">Crops</option>
+                                    <option value="livestock">Livestock</option>
+                                    <option value="inputs">Inputs</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-type">Type</label>
+                                <input id="sell-type" placeholder="e.g., Maize, Goats" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-quantity">Quantity</label>
+                                <input id="sell-quantity" type="number" min="1" placeholder="Amount (kg/head/bags)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-price">Price per unit</label>
+                                <input id="sell-price" type="number" min="0" step="0.01" placeholder="Price" required>
+                                <div class="live-price-row">
+                                    <button type="button" id="use-live-price" class="btn subtle-btn">Use Live Price</button>
+                                    <div id="live-price-hint" class="live-price-hint"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-image">Listing image</label>
+                                <input id="sell-image" type="file" accept="image/*">
+                                <div class="image-hint">Or paste an image URL below</div>
+                                <input id="sell-image-url" placeholder="https://... (optional)">
+                                <img id="sell-image-preview" alt="Preview" class="image-preview" style="display:none;" />
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-location">Location</label>
+                                <input id="sell-location" placeholder="Town/Village" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sell-contact">Contact</label>
+                                <input id="sell-contact" placeholder="Phone or WhatsApp" required>
+                            </div>
+                            <button type="submit" class="btn">Post Listing</button>
+                        </form>
+                    </div>
+                    <div class="panel">
+                        <h3>Trending</h3>
+                        <ul id="trending-list" class="simple-list"></ul>
+                    </div>
+                    <div class="panel">
+                        <h3>Market Needs</h3>
+                        <ul id="needs-list" class="simple-list"></ul>
+                        <form id="need-form" class="inline-form">
+                            <input id="need-text" placeholder="Request e.g., 2T Maize in Mutoroshanga" required>
+                            <button class="btn" type="submit">Request</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </div>
+
+    <script src="javascript/market.js"></script>
+    <script src="javascript/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGF | AI-Powered Farm Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                            <li><a href="market.html"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Slideshow -->
+    <section class="hero">
+        <div class="hero-slideshow">
+            <div class="slide active">
+                <img src="images/farmer 1..jpg" alt="Farmer working in field">
+            </div>
+            <div class="slide">
+                <img src="images/farmer 11.jpg" alt="Farmer with crops">
+            </div>
+            <div class="slide">
+                <img src="images/farmer 2.webp" alt="Farmer managing farm">
+            </div>
+            <div class="slide">
+                <img src="images/farmer 4.jpg" alt="Farmer harvesting">
+            </div>
+            <div class="slide">
+                <img src="images/FArmer.jpg" alt="Farmer in field">
+            </div>
+            <div class="slide">
+                <img src="images/farmer.webp" alt="Farmer with livestock">
+            </div>
+            <div class="slide">
+                <img src="images/t farmer.jpg" alt="Farmer technology">
+            </div>
+            <div class="slideshow-overlay"></div>
+            <div class="slideshow-controls">
+                <button class="slide-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="slide-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slide-indicators">
+                <span class="indicator active" onclick="goToSlide(0)"></span>
+                <span class="indicator" onclick="goToSlide(1)"></span>
+                <span class="indicator" onclick="goToSlide(2)"></span>
+                <span class="indicator" onclick="goToSlide(3)"></span>
+                <span class="indicator" onclick="goToSlide(4)"></span>
+                <span class="indicator" onclick="goToSlide(5)"></span>
+                <span class="indicator" onclick="goToSlide(6)"></span>
+            </div>
+        </div>
+        <div class="container hero-content">
+            <h1>Championing Smart Agriculture Across Zambia & Africa</h1>
+            <p>AgriSmart Pro blends advanced analytics with farmer-centered insights to help smallholders and commercial farms adopt resilient practices, withstand climate shocks, and grow sustainably.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="location.href='crop-planning.html'"><i class="fas fa-seedling"></i> Explore Crop Planning</button>
+                <button class="btn btn-outline" onclick="location.href='weather.html'"><i class="fas fa-cloud-sun"></i> View Weather Forecast</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div class="container">
+            <h2 class="section-title">Smart Agriculture Decision Dashboard</h2>
+            <p class="section-subtitle">Track the metrics that matter for resilience&mdash;from climate risks to smart farming adoption and adaptive finance.</p>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-value">68%</div>
+                    <div class="card-title">Smart Farming Awareness</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> +8 pts vs. last season
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="card-value">42%</div>
+                    <div class="card-title">Conservation Fields</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 12 new hectares mulched
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cow"></i>
+                    </div>
+                    <div class="card-value">61%</div>
+                    <div class="card-title">Smart Herd Management</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 18 farms piloting fodder banks
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="card-value">34°C</div>
+                    <div class="card-title">Heat Stress Alert</div>
+                    <div class="card-trend trend-down">
+                        <i class="fas fa-arrow-up"></i> 4° hotter than 10-year avg
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3 class="section-title">Quick Actions</h3>
+                <div class="actions-grid">
+                    <div class="action-card" onclick="location.href='crop-planning.html?mode=wizard'">
+                        <i class="fas fa-seedling"></i>
+                        <span>Design Smart Crop Plan</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='livestock.html'">
+                        <i class="fas fa-cow"></i>
+                        <span>Assess Herd Resilience</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='finance.html'">
+                        <i class="fas fa-calculator"></i>
+                        <span>Access Climate Finance</span>
+                    </div>
+                    <div class="action-card" onclick="location.href='weather.html'">
+                        <i class="fas fa-cloud-sun-rain"></i>
+                        <span>Check Climate Outlook</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us">
+        <div class="container">
+            <h2 class="section-title">About AgriSmart Pro</h2>
+            <p class="section-subtitle">Rooted in Zambia, designed for Africa&rsquo;s smart agricultural transformation</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>AgriSmart Pro is a smart farm management platform built around the realities of Zambian and African farmers. We translate evidence from behavioural research, agricultural policy, and frontline extension work into actionable digital tools that amplify productivity while safeguarding livelihoods against climate shocks.</p>
+                    
+                    <h3>How We Help Farmers</h3>
+                    <p>We accelerate the adoption of proven smart farming practices by combining localized data, social insights, and farmer-friendly design. Here is how AgriSmart Pro supports resilient decision-making:</p>
+                    
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h4>Smart Crop Planning</h4>
+                            <p>Create adaptive crop calendars that incorporate drought-tolerant varieties, crop rotation, and mulching to maintain soil health and safeguard yields.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h4>Intelligent Water Stewardship</h4>
+                            <p>Align irrigation with rainfall forecasts, soil moisture, and watershed health to make every litre count during droughts and flood recovery.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-cow"></i>
+                            </div>
+                            <h4>Livestock Resilience</h4>
+                            <p>Monitor herd health, plan fodder reserves, and adapt housing to withstand heat stress events while tracking productivity targets.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                            </div>
+                            <h4>Climate Intelligence</h4>
+                            <p>Combine day-to-day forecasts with long-term climate indicators to prepare for drought, heat waves, and pest outbreaks before they strike.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Climate Finance Readiness</h4>
+                            <p>Track investments tied to smart farming upgrades, connect with grants or microfinance, and measure returns on resilient practices.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h4>AI & Behavioural Insights</h4>
+                            <p>Receive guidance powered by AI that mirrors trusted advisor networks and accounts for gender, experience, and attitudes toward risk.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Decision-Making Support</h3>
+                    <p>Our research-led decision engine brings the human side of adoption into the platform:</p>
+                    <ul class="decision-list">
+                        <li><i class="fas fa-check-circle"></i> <strong>Behaviour-Informed Analytics:</strong> Track how gender, education, and farm size influence adoption journeys to prioritise the right support.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Predictive Climate Insights:</strong> Forecast yields, rainfall shocks, and market movements to plan proactive responses.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Trusted Advisory Pathways:</strong> Surface recommendations from extension services, agro-dealers, and peer leaders based on farmer preferences.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Resource Optimization:</strong> Calibrate inputs such as water, fertilizer, and labour to match smart farming best practices.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Risk Management:</strong> Receive alerts on impending climate shocks with step-by-step mitigation actions.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Climate Finance Guidance:</strong> Access blended finance opportunities and evaluate ROI for conservation agriculture investments.</li>
+                    </ul>
+                    
+                    <div class="mission-statement">
+                        <h3>Our Mission</h3>
+                        <p>To close the gap between proven smart farming solutions and the farmers who need them. We empower every farmer&mdash;from 1-hectare households to commercial estates&mdash;with the tools, insights, and networks required to thrive in a changing climate and strengthen food security across Africa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-toggle">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <span class="chatbot-status"></span>
+            <div>
+                <div class="chatbot-title">AgriBot AI</div>
+                <div class="chatbot-subtitle">Precision Farming Assistant</div>
+            </div>
+            <button class="chatbot-close" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="suggestions">
+            <button class="suggestion-chip" data-msg="Recommend planting dates for maize">Planting dates for maize</button>
+            <button class="suggestion-chip" data-msg="Create a weekly task plan for irrigation">Irrigation task plan</button>
+            <button class="suggestion-chip" data-msg="What feed schedule for dairy cattle?">Dairy feed schedule</button>
+            <button class="suggestion-chip" data-msg="Analyze weather impact on spraying next 3 days">Weather & spraying</button>
+        </div>
+        <div class="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Ask a question...">
+            <button><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>AgriSmart Pro</h3>
+                    <p>Modern farm management solutions powered by AI and smart agriculture technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Dashboard</a></li>
+                        <li><a href="crop-planning.html"><i class="fas fa-chevron-right"></i> Crop Planning</a></li>
+                        <li><a href="livestock.html"><i class="fas fa-chevron-right"></i> Livestock</a></li>
+                        <li><a href="finance.html"><i class="fas fa-chevron-right"></i> Finance</a></li>
+                        <li><a href="weather.html"><i class="fas fa-chevron-right"></i> Weather</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@agrismartpro.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +263 775 939 454</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Farm Innovation Drive, Lusaka, Zambia</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content auth-3d">
+            <div class="modal-header">
+                <h2><i class="fas fa-seedling"></i> Welcome Back to AgriSmart Pro</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email, Username, or Phone</label>
+                        <input type="text" id="loginEmail" name="email" placeholder="Enter email, username, or phone number" required>
+                        <i class="fas fa-user form-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                        <i class="fas fa-lock form-icon"></i>
+                        <span class="toggle-password" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+                <div class="modal-footer">
+                    <p>Don't have an account? <a href="signup.html" onclick="closeLoginModal()">Sign up here</a></p>
+                </div>
+            </div>
+            <div class="auth-float a1"></div>
+            <div class="auth-float a2"></div>
+            <div class="auth-float a3"></div>
+        </div>
+    </div>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/dashboard.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/chatbot.js" defer></script>
+    <script>
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Handle wrap-around
+            if (index >= totalSlides) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = totalSlides - 1;
+            } else {
+                currentSlide = index;
+            }
+
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentSlide);
+            });
+
+            // Update indicators
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto-advance slideshow
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Initialize slideshow
+        showSlide(0);
+
+    </script>
+    <style>
+        :root {
+            --primary: #2c5f2d;
+            --primary-dark: #1b5e20;
+            --accent: #ffb300;
+            --info: #1976d2;
+            --surface: #ffffff;
+            --text: #111111;
+        }
+        /* Hero Slideshow Styles */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slideshow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(27,94,32,0.35), rgba(0,0,0,0.6));
+            z-index: 2;
+        }
+
+        .slideshow-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 3;
+        }
+
+        .slide-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 0;
+            color: #2c3e50;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-btn:hover {
+            background: var(--accent);
+            color: #1b1b1b;
+            transform: scale(1.1);
+        }
+
+        .slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding-top: 105px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        /* About Us Section Styles */
+        .about-us {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            border-bottom: 3px solid #4a7c59;
+            padding-bottom: 10px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), #4caf50);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .benefit-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .benefit-card h4 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .decision-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .decision-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .decision-list li:last-child {
+            border-bottom: none;
+        }
+
+        .decision-list i {
+            color: #4a7c59;
+            font-size: 1.2rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .decision-list strong {
+            color: #2c3e50;
+        }
+
+        .mission-statement {
+            background: linear-gradient(135deg, #4a7c59, #6b9c7d);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 50px;
+            color: white;
+        }
+
+        .mission-statement h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mission-statement p {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
+        

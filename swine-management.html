@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swine Management | AgriSmart Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/livestock.css">
+    <style>
+        /* ——— Page-scoped advanced styling for Swine ——— */
+        :root{
+            --olive:#4b5e34;
+            --olive-dark:#3f4f2e;
+            --card:#ffffff;
+            --stroke:#d9e2cf;
+            --text:#1f2937;
+            --muted:#475569;
+            --radius:16px;
+            --shadow:0 10px 30px -12px rgba(0,0,0,.35);
+        }
+        body{
+            background: linear-gradient(180deg, #f7f9f5, #eef3ea);
+            color: var(--text);
+        }
+        header{
+            background: linear-gradient(180deg, rgba(34,49,24,.85), rgba(34,49,24,.55));
+            border-bottom: 1px solid rgba(107,127,73,.35);
+            backdrop-filter: blur(10px);
+        }
+        .background-simulation.livestock-simulation{
+            position: relative;
+            min-height: 240px;
+            background:
+                linear-gradient(180deg, rgba(75,94,52,.88), rgba(75,94,52,.68)),
+                url('images/Pigs.jpg') center/cover no-repeat fixed;
+        }
+        .background-simulation .simulation-overlay{ display:none; }
+        .section-title{
+            display:inline-flex; align-items:center; gap:.6rem;
+            padding:.6rem 1rem; border-radius:12px;
+            background: linear-gradient(180deg, rgba(75,94,52,.12), rgba(75,94,52,.06));
+            border:1px solid rgba(107,127,73,.35);
+        }
+        .section-subtitle{ color: var(--muted); }
+        .stat-card, .livestock-card{
+            background: var(--card);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--olive);
+            color: var(--text);
+        }
+        .stat-icon i{ color: var(--olive); font-size: 1.3rem; }
+        .stat-value{ font-weight: 800; color: var(--olive-dark); font-size: 1.6rem; }
+        .stat-label{ color: #6b7f49; }
+        .livestock-header h3{ margin:0; display:flex; align-items:center; gap:.6rem; }
+        .livestock-header i{ color: var(--olive); }
+        .production-data .data-item span:first-child{ color:#6b7f49; }
+        .production-data .data-item span:last-child{ color:#223018; font-weight:600; }
+        footer{
+            background: linear-gradient(180deg, rgba(34,49,24,.0), rgba(34,49,24,.3));
+            border-top: 1px solid rgba(107,127,73,.35);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">AgroAxis</span>
+                <i class="fas fa-seedling"></i>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="crop-planning.html" class="nav-link dropdown-toggle">Crop Planning <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="planting-calendar.html"><i class="fas fa-calendar-alt"></i> Planting Calendar</a></li>
+                            <li><a href="irrigation-schedule.html"><i class="fas fa-tint"></i> Irrigation Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="livestock.html" class="nav-link dropdown-toggle">Livestock <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="dairy-cattle.html"><i class="fas fa-cow"></i> Dairy Cattle Management</a></li>
+                            <li><a href="poultry-management.html"><i class="fas fa-egg"></i> Poultry Management</a></li>
+                            <li><a href="swine-management.html"><i class="fas fa-piggy-bank"></i> Swine Management</a></li>
+                            <li><a href="vaccination-schedule.html"><i class="fas fa-syringe"></i> Vaccination Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="finance.html" class="nav-link dropdown-toggle">Finance <i class="fas fa-plus"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="investment-calculator.html"><i class="fas fa-calculator"></i> Investment Calculator</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="weather.html" class="nav-link">Weather</a></li>
+                    <li><a href="market.html" class="nav-link">Market</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn btn-primary" onclick="location.href='signup.html'"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Simulation -->
+    <div class="background-simulation livestock-simulation">
+        <div class="simulation-overlay"></div>
+    </div>
+
+    <!-- Swine Management Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-piggy-bank"></i> Climate-Smart Swine Management</h2>
+            <p class="section-subtitle">Monitor housing ventilation, feed conversion, and biosecurity to keep herds productive under climate stress.</p>
+            <div class="livestock-callout" style="background:#f4f7ef;border-left:4px solid #4b5e34;padding:16px 20px;border-radius:12px;margin:18px 0;color:#2d3e33;">
+                <strong>Resilience insight:</strong> Past flood events influenced whether farmers raised pigs on elevated slats. Record shock history to prompt infrastructure upgrades.
+            </div>
+            
+            <div class="livestock-overview">
+                <div class="livestock-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="pigsTotalValue">0</div>
+                            <div class="stat-label">Total Head</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="sowsValue">0</div>
+                            <div class="stat-label">Sows</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="pigletsValue">0</div>
+                            <div class="stat-label">Piglets</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="avgGainValue">1.8</div>
+                            <div class="stat-label">Avg. Weight Gain (lbs/day)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="livestock-grid">
+                <div class="livestock-card">
+                    <div class="livestock-header">
+                        <div class="livestock-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <h3>Growth Tracking</h3>
+                    </div>
+                    <div class="livestock-body">
+                        <div class="production-data">
+                            <div class="data-item">
+                                <span>Average Weight:</span>
+                                <span id="avgWeightValue">145 lbs</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Target Weight:</span>
+                                <span id="targetWeightValue">250 lbs</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Days to Market:</span>
+                                <span id="daysToMarketValue">- days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="livestock-card">
+                    <div class="livestock-header">
+                        <div class="livestock-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Feed Management</h3>
+                    </div>
+                    <div class="livestock-body">
+                        <div class="production-data">
+                            <div class="data-item">
+                                <span>Feed Type:</span>
+                                <span>Grower Mix</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Daily Consumption:</span>
+                                <span id="dailyFeedValue">0 lbs</span>
+                            </div>
+                            <div class="data-item">
+                                <span>Feed Efficiency:</span>
+                                <span>3.2:1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                &copy; <span id="copyrightYear">2023</span> AgriSmart Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript/main.js"></script>
+    <script src="javascript/auth.js"></script>
+    <script src="javascript/livestock.js"></script>
+    <script>
+        // Link to saved pigs data (if present) and calculate metrics
+        (function(){
+            function getData(){
+                try{ return JSON.parse(localStorage.getItem('livestockData') || '{}'); }catch(_){ return {}; }
+            }
+            function format(n, d=0){ return Number(n).toLocaleString(undefined, { maximumFractionDigits: d }); }
+            function set(id, val){ const el=document.getElementById(id); if(el) el.textContent = val; }
+            function recalc(){
+                const d = getData();
+                const total = Math.max(0, parseInt(d.pigs) || 0);
+                // If not stored, estimate herd composition
+                const sows = d.pigsSows ? Math.max(0, parseInt(d.pigsSows)) : Math.round(total * 0.2);
+                const piglets = d.piglets ? Math.max(0, parseInt(d.piglets)) : Math.max(0, total - sows);
+                const avgGain = parseFloat(document.getElementById('avgGainValue').textContent) || 1.8; // lbs/day
+                const avgWeight = d.pigsAvgWeight ? Math.max(1, parseInt(d.pigsAvgWeight)) : 145;
+                const targetWeight = 250;
+                const daysToMarket = Math.max(0, Math.ceil((targetWeight - avgWeight) / Math.max(0.1, avgGain)));
+                // Feed: simple thumb rule 5 lb/head/day for growers/finishers
+                const feedPerHeadLb = 5;
+                const dailyFeed = total * feedPerHeadLb;
+
+                set('pigsTotalValue', format(total));
+                set('sowsValue', format(sows));
+                set('pigletsValue', format(piglets));
+                set('avgWeightValue', format(avgWeight) + ' lbs');
+                set('targetWeightValue', format(targetWeight) + ' lbs');
+                set('daysToMarketValue', format(daysToMarket) + ' days');
+                set('dailyFeedValue', format(dailyFeed));
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                recalc();
+                const y = document.getElementById('copyrightYear');
+                if (y) y.textContent = new Date().getFullYear();
+            });
+            window.addEventListener('storage', function(e){
+                if (e.key === 'livestockData') recalc();
+            });
+        })();
+    </script>
+</body>
+</html>
