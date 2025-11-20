@@ -1,0 +1,1034 @@
+/* Crop Planning Specific Styles */
+.crop-planning-content {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+    color: #1b5e20;
+}
+
+/* Plan Details View Styles */
+#planDetailsView {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    color: #1b5e20;
+}
+
+#planDetailsView .plan-details-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#planDetailsContainer {
+    width: 100%;
+    min-height: 500px;
+}
+
+/* Ensure all text in plan details matches the color scheme */
+#planDetailsView * {
+    color: inherit;
+}
+
+#planDetailsView h1,
+#planDetailsView h2,
+#planDetailsView h3,
+#planDetailsView h4 {
+    color: #2c5f2d;
+}
+
+#planDetailsView p {
+    color: #1b5e20;
+}
+
+#planDetailsView .text-muted,
+#planDetailsView .section-description {
+    color: #666;
+}
+
+/* Buttons in plan details */
+#planDetailsView .btn {
+    background: #4a7c59;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#planDetailsView .btn:hover {
+    background: #2c5f2d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 124, 89, 0.3);
+}
+
+#planDetailsView .btn-primary {
+    background: #4a7c59;
+}
+
+#planDetailsView .btn-primary:hover {
+    background: #2c5f2d;
+}
+
+/* Links in plan details */
+#planDetailsView a {
+    color: #4a7c59;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#planDetailsView a:hover {
+    color: #2c5f2d;
+    text-decoration: underline;
+}
+
+/* Icons in plan details */
+#planDetailsView i {
+    color: #4a7c59;
+}
+
+#planDetailsView .plan-header i,
+#planDetailsView .plan-header h1 i {
+    color: white;
+}
+
+/* Status badges */
+#planDetailsView .status-active {
+    background: rgba(56, 142, 60, 0.2);
+    color: #2e7d32;
+}
+
+#planDetailsView .status-pending {
+    background: rgba(255, 152, 0, 0.2);
+    color: #f57c00;
+}
+
+#planDetailsView .status-completed {
+    background: rgba(74, 124, 89, 0.2);
+    color: #2c5f2d;
+}
+
+/* Input checkboxes - ensure they match theme */
+#planDetailsView input[type="checkbox"] {
+    accent-color: #4a7c59;
+}
+
+#planDetailsView input[type="checkbox"]:checked {
+    background-color: #4a7c59;
+    border-color: #4a7c59;
+}
+
+/* Ensure all cards have consistent styling */
+#planDetailsView .card,
+#planDetailsView .detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Loading and error states */
+#planDetailsView .loading-spinner {
+    color: #4a7c59;
+}
+
+#planDetailsView .loading-spinner i {
+    color: #4a7c59;
+}
+
+/* Ensure weather forecast card text is readable */
+#planDetailsView .weather-forecast-card {
+    color: #01579b;
+}
+
+#planDetailsView .weather-forecast-card h3,
+#planDetailsView .weather-forecast-card h4 {
+    color: #01579b;
+}
+
+#planDetailsView .weather-forecast-card p {
+    color: #01579b;
+}
+
+/* Ensure recommendation cards have proper text colors */
+#planDetailsView .recommendation-card p {
+    color: #555;
+}
+
+#planDetailsView .recommendation-card.priority-high p {
+    color: #c62828;
+}
+
+#planDetailsView .recommendation-card.priority-medium p {
+    color: #e65100;
+}
+
+#planDetailsView .recommendation-card.priority-low p {
+    color: #2e7d32;
+}
+
+/* Input category card hover states */
+#planDetailsView .input-category-card:hover h3 {
+    color: #1b5e20;
+}
+
+#planDetailsView .input-category-card:hover .input-label {
+    color: #2c5f2d;
+}
+
+/* Overview cards hover effect */
+#planDetailsView .overview-card:hover {
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.2);
+}
+
+#planDetailsView .overview-card:hover .overview-value {
+    color: #1b5e20;
+}
+
+/* Plan section hover */
+#planDetailsView .plan-section:hover {
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.15);
+}
+
+/* Recommendation card hover */
+#planDetailsView .recommendation-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(3px);
+}
+
+/* Advice item hover */
+#planDetailsView .advice-item:hover {
+    box-shadow: 0 2px 8px rgba(74, 124, 89, 0.15);
+    transform: translateX(3px);
+}
+
+/* Ensure all list items have proper colors */
+#planDetailsView ul li,
+#planDetailsView ol li {
+    color: #555;
+}
+
+#planDetailsView .advice-practices li {
+    color: #666;
+}
+
+/* Forecast summary items */
+#planDetailsView .forecast-summary-item {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#planDetailsView .forecast-summary-item:hover {
+    box-shadow: 0 4px 10px rgba(21, 101, 192, 0.2);
+}
+
+/* Ensure proper spacing and readability */
+#planDetailsView .plan-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Strong/bold text in plan details */
+#planDetailsView strong {
+    color: #2c5f2d;
+}
+
+/* Ensure table-like structures have proper styling */
+#planDetailsView .input-item:last-child {
+    border-bottom: none;
+}
+
+/* Status badge in plan header */
+#planDetailsView .plan-status-badge.status-active {
+    background: rgba(255,255,255,0.3);
+    color: white;
+}
+
+#planDetailsView .plan-status-badge.status-pending {
+    background: rgba(255,255,255,0.3);
+    color: white;
+}
+
+#planDetailsView .plan-status-badge.status-completed {
+    background: rgba(255,255,255,0.3);
+    color: white;
+}
+
+/* Crop Selection Card */
+.crop-selection-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.crop-selector-wrapper h3 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.crop-selector-wrapper p {
+    color: var(--gray);
+    margin-bottom: 20px;
+}
+
+.crop-select {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px 20px;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background: white;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.crop-select:hover {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+}
+
+.crop-select:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+}
+
+/* Crop Details Container */
+.crop-details-container {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.detail-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-card h3 i {
+    color: var(--primary);
+}
+
+/* Yield Card */
+.yield-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+}
+
+.yield-card h3 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.3);
+}
+
+.yield-info {
+    text-align: center;
+}
+
+.yield-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.yield-note {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.info-item strong {
+    display: block;
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    color: var(--dark);
+}
+
+/* Irrigation Stages */
+.irrigation-stages {
+    margin-top: 15px;
+}
+
+.irrigation-stages h4 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+}
+
+.irrigation-stages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.irrigation-stages li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #e3f2fd;
+    border-radius: 6px;
+    border-left: 4px solid #2196f3;
+}
+
+.irrigation-stages li strong {
+    color: #1976d2;
+}
+
+/* Weather Advice */
+.weather-advice {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff3e0;
+    border-radius: 8px;
+    border-left: 4px solid #ff9800;
+}
+
+.weather-alert {
+    color: #e65100;
+}
+
+.weather-alert i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+/* Fertilizer Stages */
+.fertilizer-stages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.fertilizer-stages li {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #e8f5e9;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.fertilizer-stages li strong {
+    color: var(--primary-dark);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+/* Chemical Stages */
+.chemical-stages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.chemical-stages li {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fce4ec;
+    border-radius: 8px;
+    border-left: 4px solid #e91e63;
+}
+
+.chemical-stages li strong {
+    color: #c2185b;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Harvest Details */
+#harvestDetails p {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+}
+
+#harvestDetails strong {
+    color: var(--primary-dark);
+}
+
+/* Timeline */
+.timeline-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 40px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background: var(--primary);
+}
+
+.timeline-marker {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.timeline-content {
+    flex: 1;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.timeline-content h4 {
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+}
+
+.timeline-content p {
+    color: var(--gray);
+    margin: 0;
+}
+
+/* Responsive */
+/* Plan Details Page Styles */
+.plan-details-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.plan-header {
+    background: linear-gradient(135deg, #4a7c59 0%, #2c5f2d 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.plan-header-content h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.5rem;
+}
+
+.plan-subtitle {
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.plan-status-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.2);
+}
+
+.plan-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.overview-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+}
+
+.overview-card i {
+    font-size: 2.5rem;
+    color: #4a7c59;
+    margin-bottom: 15px;
+}
+
+.overview-card h3 {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+
+.overview-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c5f2d;
+}
+
+.plan-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.plan-section h2 {
+    color: #2c5f2d;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-description {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Input Requirements Grid */
+.input-requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.input-category-card {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.input-category-card:hover {
+    border-color: #4a7c59;
+    box-shadow: 0 4px 12px rgba(74, 124, 89, 0.1);
+}
+
+.input-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.input-category-header h3 {
+    margin: 0;
+    color: #2c5f2d;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.input-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.input-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.input-item.total {
+    border-top: 2px solid #4a7c59;
+    border-bottom: none;
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+.input-label {
+    color: #666;
+}
+
+.input-value {
+    font-weight: 600;
+    color: #2c5f2d;
+}
+
+/* Weather Forecast Styles */
+.weather-forecast-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.forecast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.forecast-header h3 {
+    margin: 0;
+    color: #1565c0;
+}
+
+.forecast-updated {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.forecast-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.forecast-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.forecast-summary-item i {
+    font-size: 2rem;
+    color: #1565c0;
+}
+
+.forecast-alerts {
+    margin-bottom: 20px;
+}
+
+.forecast-alerts h4 {
+    margin-bottom: 10px;
+    color: #d32f2f;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background: #ffebee;
+    border-left: 4px solid #d32f2f;
+}
+
+.alert-warning {
+    background: #fff3e0;
+    border-left-color: #f57c00;
+}
+
+.forecast-advice {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.forecast-advice h4 {
+    margin-bottom: 15px;
+    color: #2c5f2d;
+}
+
+.forecast-advice ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.forecast-advice li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* CSA Recommendations Styles */
+.csa-recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.recommendation-card {
+    background: #f8f9fa;
+    border-left: 5px solid #4a7c59;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.recommendation-card.priority-high {
+    border-left-color: #d32f2f;
+    background: #ffebee;
+}
+
+.recommendation-card.priority-medium {
+    border-left-color: #f57c00;
+    background: #fff3e0;
+}
+
+.recommendation-card.priority-low {
+    border-left-color: #388e3c;
+    background: #e8f5e9;
+}
+
+.recommendation-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.recommendation-header h3 {
+    flex: 1;
+    margin: 0;
+    color: #2c5f2d;
+    font-size: 1.3rem;
+}
+
+.recommendation-header i {
+    font-size: 1.5rem;
+    color: #4a7c59;
+}
+
+.priority-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.priority-badge.priority-high {
+    background: #d32f2f;
+    color: white;
+}
+
+.priority-badge.priority-medium {
+    background: #f57c00;
+    color: white;
+}
+
+.priority-badge.priority-low {
+    background: #388e3c;
+    color: white;
+}
+
+.recommendation-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.recommendation-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.recommendation-actions ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.recommendation-actions li {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.recommendation-impact {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(74, 124, 89, 0.1);
+    border-radius: 6px;
+    color: #2c5f2d;
+    font-weight: 500;
+}
+
+/* Region Advice Styles */
+.region-advice-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.region-advice-card h3 {
+    color: #2c5f2d;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.advice-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.advice-item {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #4a7c59;
+}
+
+.advice-item h4 {
+    color: #2c5f2d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.advice-item p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.advice-practices {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.advice-practices li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading-spinner i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    text-align: center;
+    padding: 40px;
+    color: #d32f2f;
+}
+
+.error-message i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .crop-select {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    
+    .yield-value {
+        font-size: 2rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+    }
+    
+    .timeline-item::after {
+        display: none;
+    }
+
+    .plan-overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-requirements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .forecast-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .plan-header-content h1 {
+        font-size: 1.8rem;
+    }
+}
